@@ -129,12 +129,20 @@ public class ConsoleGameApplicationSteps {
 
 	@Then("^Message is shown$")
 	public void message_is_shown(String expectedMessage) throws Throwable {
-		Assert.assertTrue(outputStream.toString().endsWith(expectedMessage));
+		String message = String.format("expected: %s\r\ngot: %s", expectedMessage, outputStream.toString());
+		Assert.assertTrue(message, outputStream.toString().endsWith(expectedMessage));
 	}
 	
 	@When("^user enter unknown command \"(.*?)\"$")
 	public void user_enter_unknown_command(String unknownCommand) throws Throwable {
 		inputStream = new ByteArrayInputStream(("unknownCommand").getBytes());	
+		consoleApplication.setIn(inputStream);
+		consoleApplication.start();
+	}
+	
+	@When("^user enter help command$")
+	public void user_enter_help_command() throws Throwable {
+		inputStream = new ByteArrayInputStream(("help").getBytes());	
 		consoleApplication.setIn(inputStream);
 		consoleApplication.start();
 	}

@@ -13,9 +13,12 @@ public final class ApplicationCommandFactory {
 	private ApplicationCommandFactory() {
 		// NOP
 	}
-	
-	public static void run(String command, Game game, MessageOutput messageOutput, MessageInput messageInput) throws IOException {
-		if ((!game.hasStarted() || game.isCompleted()) && Command.START.matches(command)) {
+
+	public static void run(String command, Game game, MessageOutput messageOutput, MessageInput messageInput)
+			throws IOException {
+		if (Command.HELP.matches(command)) {
+			new HelpCommand().run(game, messageOutput, messageInput);
+		} else if ((!game.hasStarted() || game.isCompleted()) && Command.START.matches(command)) {
 			new StartGameCommand().run(game, messageOutput, messageInput);
 		} else if (game.hasStarted() && Command.USER_DIRECTIONS.matches(command)) {
 			Integer x = Integer.parseInt(Command.USER_DIRECTIONS.group(1));
@@ -28,26 +31,25 @@ public final class ApplicationCommandFactory {
 	}
 
 	private enum Command {
-		USER_DIRECTIONS("(\\d),(\\d)"),
-		START("y|start");
-		
+		USER_DIRECTIONS("(\\d),(\\d)"), START("y|start"), HELP("help");
+
 		private String pattern;
 		private Matcher m;
-		
+
 		private Command(String pattern) {
 			this.pattern = pattern;
 		}
-		
+
 		public boolean matches(String command) {
 			Pattern p = Pattern.compile(pattern);
 			m = p.matcher(command);
 			return m.matches();
 		}
-		
-		public String group(int  group) {
+
+		public String group(int group) {
 			return m.group(group);
 		}
-		
+
 	}
-	
+
 }

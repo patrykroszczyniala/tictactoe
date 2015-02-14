@@ -7,3 +7,9 @@
 ```
 
 Java application created to familiarize with BDD using cucumber-jvm.
+
+Currently it supports console version.
+
+TODO
+ # commands: exit, break
+ # refactoring (cleanup in feature files)

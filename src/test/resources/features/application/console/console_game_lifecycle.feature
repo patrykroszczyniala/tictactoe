@@ -119,3 +119,16 @@ Feature: TicTacToe console game lifecycle
 	Revenge? (y/n): 
 	"""
 	
+  Scenario: User can ask for help in any time
+    Given console application
+    And user enter help command
+    Then Message is shown
+    """
+    I need help!
+    Available commands:
+        break - stop current game
+        exit - exit the game
+        help - show this help
+
+	"""
+	
