@@ -15,11 +15,11 @@ public final class ApplicationCommandFactory {
 	}
 	
 	public static void run(String command, Game game, MessageOutput messageOutput, MessageInput messageInput) throws IOException {
-		if (command.equals("start") || command.equals("y")) {
+		if ((!game.hasStarted() || game.isCompleted()) && Command.START.matches(command)) {
 			new StartGameCommand().run(game, messageOutput, messageInput);
-		} else if (game.hasStarted() && CommandPattern.USER_DIRECTIONS.matches(command)) {
-			Integer x = Integer.parseInt(CommandPattern.USER_DIRECTIONS.group(1));
-			Integer y = Integer.parseInt(CommandPattern.USER_DIRECTIONS.group(2));
+		} else if (game.hasStarted() && Command.USER_DIRECTIONS.matches(command)) {
+			Integer x = Integer.parseInt(Command.USER_DIRECTIONS.group(1));
+			Integer y = Integer.parseInt(Command.USER_DIRECTIONS.group(2));
 			new UserDirectionsCommand().setDirections(x, y).run(game, messageOutput, messageInput);
 		} else {
 			messageOutput.show("wrn_unknown_command");
@@ -27,13 +27,14 @@ public final class ApplicationCommandFactory {
 		}
 	}
 
-	private enum CommandPattern {
-		USER_DIRECTIONS("(\\d),(\\d)");
+	private enum Command {
+		USER_DIRECTIONS("(\\d),(\\d)"),
+		START("y|start");
 		
 		private String pattern;
 		private Matcher m;
 		
-		private CommandPattern(String pattern) {
+		private Command(String pattern) {
 			this.pattern = pattern;
 		}
 		

@@ -60,5 +60,10 @@ public class AppTestSteps {
 	public void error_should_be_shown(String expectedWarning) throws Throwable {
 		Assert.assertEquals(expectedWarning, lastWarning.getMessage());
 	}
+	
+	@Then("^board is full$")
+	public void board_is_completed() throws Throwable {
+		Assert.assertTrue(game.getBoard().isFull());
+	}
 
 }

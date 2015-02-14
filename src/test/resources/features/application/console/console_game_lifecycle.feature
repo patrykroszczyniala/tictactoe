@@ -109,4 +109,13 @@ Feature: TicTacToe console game lifecycle
     Unknown command. Enter "help" if you have some troubles...
     To start the game enter "start": 
 	"""
+
+  Scenario: Show info if game has completed but nobody won
+    Given console application
+    When console board is full
+    Then Message is shown
+    """	
+    Game completed but nobody won...
+	Revenge? (y/n): 
+	"""
 	

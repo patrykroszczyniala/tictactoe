@@ -73,7 +73,18 @@ public class Board {
 		return boardAsString;
 	}
 
-	public boolean completed() {
+	public boolean isFull() {
+		for (String[] row : boardDefinition) {
+			for (String cell : row) {
+				if (cell.equals("_")) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+	public boolean isWinner() {
 		String win1 = String.format("%s%s%s", boardDefinition[0][0], boardDefinition[0][1], boardDefinition[0][2]);
 		String win2 = String.format("%s%s%s", boardDefinition[1][0], boardDefinition[1][1], boardDefinition[1][2]);
 		String win3 = String.format("%s%s%s", boardDefinition[2][0], boardDefinition[2][1], boardDefinition[2][2]);

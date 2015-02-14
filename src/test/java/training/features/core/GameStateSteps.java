@@ -53,5 +53,5 @@ public class GameStateSteps {
 	public void active_player_is_the_winner() throws Throwable {
 		Assert.assertEquals(Player.O, game.getWinner());
 	}
-
+	
 }

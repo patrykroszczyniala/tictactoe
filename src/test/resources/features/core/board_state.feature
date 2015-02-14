@@ -26,3 +26,11 @@ Scenario: User can't move to already used cell
 	| _ | _ | _ |
 	When player made a move to (2,1)
 	Then error should be shown "This position is already used!"
+	
+Scenario: Board is full if every cell is occupied
+	Given a game with a board
+	| o | o | x | 
+	| x | x | o | 
+	| o | x | _ |
+	When player made a move to (2,2)
+	Then board is full

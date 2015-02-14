@@ -48,11 +48,19 @@ public class Game {
 	}
 
 	public boolean isCompleted() {
-		return board.completed();
+		return isFull() || isWinner();
+	}
+	
+	public boolean isWinner() {
+		return board.isWinner();
+	}
+	
+	public boolean isFull() {
+		return board.isFull();
 	}
 
 	public Player getWinner() {
-		if (board.completed()) {
+		if (board.isWinner()) {
 			return activePlayer;
 		}
 		return null;

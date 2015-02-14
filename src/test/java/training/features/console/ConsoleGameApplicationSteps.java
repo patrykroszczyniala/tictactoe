@@ -108,6 +108,13 @@ public class ConsoleGameApplicationSteps {
 		consoleApplication.setIn(inputStream);
 		consoleApplication.start();
 	}
+	
+	@When("^console board is full$")
+	public void console_board_is_full() throws Throwable {
+		inputStream = new ByteArrayInputStream(("start\r\n0,0\r\n0,1\r\n0,2\r\n1,0\r\n1,1\r\n1,2\r\n2,0\r\n2,1\r\n2,1\r\n2,2").getBytes());
+		consoleApplication.setIn(inputStream);
+		consoleApplication.start();
+	}
 
 	@Then("^user is asked to play again$")
 	public void user_is_asked_to_play_again() throws Throwable {
