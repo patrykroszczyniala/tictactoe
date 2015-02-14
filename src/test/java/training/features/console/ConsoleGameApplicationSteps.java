@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.Assert;
 
 import training.application.console.ConsoleGameApplication;
+import training.application.console.model.ConsoleBoard;
 import training.core.model.Board;
 import training.features.core.AppTestSteps;
 import cucumber.api.java.Before;
@@ -64,7 +65,7 @@ public class ConsoleGameApplicationSteps {
 
 	@Then("^empty board should be shown$")
 	public void empty_board_should_be_shown(List<List<String>> expectedBoardDefinition) throws Throwable {
-		Board expectedBoard = new Board(AppTestSteps.convertToArray(expectedBoardDefinition));
+		Board expectedBoard = new ConsoleBoard(AppTestSteps.convertToArray(expectedBoardDefinition));
 		Assert.assertEquals(expectedBoard, consoleApplication.getGame().getBoard());
 	}
 

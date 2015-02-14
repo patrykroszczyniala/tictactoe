@@ -9,17 +9,22 @@ import training.core.GameRuntimeException.Warning;
 
 public class Board {
 
-	private String[][] boardDefinition;
-
-	public Board() {
-		this.boardDefinition = new String[][] { { "_", "_", "_" }, { "_", "_", "_" }, { "_", "_", "_" } };
+	public enum Symbol {
+		X, O, EMPTY;
 	}
 
-	public Board(String[][] boardDefinition) {
+	private Symbol[][] boardDefinition;
+
+	public Board() {
+		this.boardDefinition = new Symbol[][] { { Symbol.EMPTY, Symbol.EMPTY, Symbol.EMPTY },
+				{ Symbol.EMPTY, Symbol.EMPTY, Symbol.EMPTY }, { Symbol.EMPTY, Symbol.EMPTY, Symbol.EMPTY } };
+	}
+
+	public Board(Symbol[][] boardDefinition) {
 		this.boardDefinition = boardDefinition;
 	}
 
-	public String[][] getBoardDefinition() {
+	public Symbol[][] getBoardDefinition() {
 		return boardDefinition;
 	}
 
@@ -45,63 +50,40 @@ public class Board {
 		return true;
 	}
 
-	public void setPosition(int x, int y, String string) throws GameRuntimeException {
+	public void setPosition(int x, int y, Symbol symbol) throws GameRuntimeException {
 		try {
-			boolean isCellUsed = !boardDefinition[x][y].equals("_");
+			boolean isCellUsed = !boardDefinition[x][y].equals(Symbol.EMPTY);
 			if (isCellUsed) {
 				throw new GameRuntimeException(Warning.POSITION_ALREADY_USED);
 			}
-			boardDefinition[x][y] = string;
+			boardDefinition[x][y] = symbol;
 		} catch (ArrayIndexOutOfBoundsException e) {
 			throw new GameRuntimeException(Warning.BOARD_SIZE_EXCEEDED);
 		}
 	}
 
-	@Override
-	public String toString() {
-		String boardAsString = "";
-		for (int i = 0; i < boardDefinition.length; i++) {
-			boardAsString += "|";
-			for (int j = 0; j < boardDefinition.length; j++) {
-				boardAsString += " " + boardDefinition[j][i] + " |";
-			}
-			boolean hasNextRow = i + 1 < boardDefinition.length;
-			if (hasNextRow) {
-				boardAsString += "\r\n";
-			}
-		}
-		return boardAsString;
-	}
-
 	public boolean isFull() {
-		for (String[] row : boardDefinition) {
-			for (String cell : row) {
-				if (cell.equals("_")) {
+		for (Symbol[] row : boardDefinition) {
+			for (Symbol symbol : row) {
+				if (Symbol.EMPTY == symbol) {
 					return false;
 				}
 			}
 		}
 		return true;
 	}
-	
+
+	// TODO
 	public boolean isWinner() {
-		String win1 = String.format("%s%s%s", boardDefinition[0][0], boardDefinition[0][1], boardDefinition[0][2]);
-		String win2 = String.format("%s%s%s", boardDefinition[1][0], boardDefinition[1][1], boardDefinition[1][2]);
-		String win3 = String.format("%s%s%s", boardDefinition[2][0], boardDefinition[2][1], boardDefinition[2][2]);
-		String win4 = String.format("%s%s%s", boardDefinition[0][0], boardDefinition[1][0], boardDefinition[2][0]);
-		String win5 = String.format("%s%s%s", boardDefinition[0][1], boardDefinition[1][1], boardDefinition[2][1]);
-		String win6 = String.format("%s%s%s", boardDefinition[0][2], boardDefinition[1][2], boardDefinition[2][2]);
-		List<String> wins = new ArrayList<String>();
-		wins.add(win1);
-		wins.add(win2);
-		wins.add(win3);
-		wins.add(win4);
-		wins.add(win5);
-		wins.add(win6);
-		if (wins.contains("xxx") || wins.contains("ooo")) {
-			return true;
-		}
-		return false;
+		List<Boolean> wins = new ArrayList<Boolean>();
+		wins.add(Arrays.equals(boardDefinition[0], new Symbol[]{Symbol.O, Symbol.O, Symbol.O}));
+		wins.add(Arrays.equals(boardDefinition[1], new Symbol[]{Symbol.O, Symbol.O, Symbol.O}));
+		wins.add(Arrays.equals(boardDefinition[2], new Symbol[]{Symbol.O, Symbol.O, Symbol.O}));
+		wins.add(Arrays.equals(boardDefinition[0], new Symbol[]{Symbol.X, Symbol.X, Symbol.X}));
+		wins.add(Arrays.equals(boardDefinition[1], new Symbol[]{Symbol.X, Symbol.X, Symbol.X}));
+		wins.add(Arrays.equals(boardDefinition[2], new Symbol[]{Symbol.X, Symbol.X, Symbol.X}));
+		
+		return wins.contains(Boolean.TRUE);
 	}
 
 }

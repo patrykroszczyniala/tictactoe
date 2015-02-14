@@ -25,7 +25,7 @@ public class GameStateSteps {
 
 	@When("^game has started$")
 	public void game_has_started() throws Throwable {
-		game.start();
+		game.start(new Board());
 	}
 
 	@When("^active player made a move$")

@@ -6,6 +6,7 @@ import org.junit.Assert;
 
 import training.core.GameRuntimeException;
 import training.core.model.Board;
+import training.core.model.Board.Symbol;
 import training.core.model.Game;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -22,7 +23,7 @@ public class AppTestSteps {
 	@Given("^a game with an empty board$")
 	public void a_game_with_an_empty_board() throws Throwable {
 		game = new Game();
-		game.start();
+		game.start(new Board());
 	}
 
 	@Given("^a game with a board$")
@@ -31,11 +32,20 @@ public class AppTestSteps {
 		game.start(new Board(convertToArray(boardDefinition)));
 	}
 
-	public static String[][] convertToArray(List<List<String>> boardDefinition) {
-		String[][] boardDef = new String[boardDefinition.size()][boardDefinition.size()];
+	public static Symbol[][] convertToArray(List<List<String>> boardDefinition) {
+		Symbol[][] boardDef = new Symbol[boardDefinition.size()][boardDefinition.size()];
 		for (int i = 0; i < boardDefinition.size(); i++) {
 			for (int j = 0; j < boardDefinition.size(); j++) {
-				boardDef[i][j] = boardDefinition.get(j).get(i);
+				String symbolString = boardDefinition.get(j).get(i);
+				if (symbolString.equals("o")) {
+					boardDef[i][j] = Symbol.O;
+				}
+				else if (symbolString.equals("x")) {
+					boardDef[i][j] = Symbol.X;
+				}
+				else {
+					boardDef[i][j] = Symbol.EMPTY;
+				}
 			}
 		}
 		return boardDef;

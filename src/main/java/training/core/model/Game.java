@@ -1,25 +1,30 @@
 package training.core.model;
 
 import training.core.GameRuntimeException;
+import training.core.model.Board.Symbol;
 
 public class Game {
 
 	public enum Player {
-		O, X;
+		O(Symbol.O), X(Symbol.X);
+
+		private Symbol symbol;
+
+		private Player(Symbol symbol) {
+			this.symbol = symbol;
+		}
+
+		public Symbol getSymbol() {
+			return symbol;
+		}
+
 	}
 
 	private Board board;
 	private Player activePlayer;
 
-	public Game() {
-	}
-
-	public void start() {
-		start(new Board());
-	}
-	
 	public boolean hasStarted() {
-		return board!=null;
+		return board != null;
 	}
 
 	public void start(Board board) {
@@ -28,7 +33,7 @@ public class Game {
 	}
 
 	public void move(int x, int y) throws GameRuntimeException {
-		board.setPosition(x, y, getActivePlayer().toString().toLowerCase());
+		board.setPosition(x, y, getActivePlayer().getSymbol());
 		if (getWinner() != null) {
 			return;
 		}
@@ -50,11 +55,11 @@ public class Game {
 	public boolean isCompleted() {
 		return isFull() || isWinner();
 	}
-	
+
 	public boolean isWinner() {
 		return board.isWinner();
 	}
-	
+
 	public boolean isFull() {
 		return board.isFull();
 	}
