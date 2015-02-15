@@ -1,5 +1,6 @@
 package training.features.core;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -32,21 +33,22 @@ public class AppTestSteps {
 		game.start(new Board(convertToArray(boardDefinition)));
 	}
 
-	public static Symbol[][] convertToArray(List<List<String>> boardDefinition) {
-		Symbol[][] boardDef = new Symbol[boardDefinition.size()][boardDefinition.size()];
-		for (int i = 0; i < boardDefinition.size(); i++) {
-			for (int j = 0; j < boardDefinition.size(); j++) {
-				String symbolString = boardDefinition.get(j).get(i);
+	public static List<List<Symbol>> convertToArray(List<List<String>> boardDefinition) {
+		List<List<Symbol>> boardDef = new ArrayList<List<Symbol>>();
+		for (List<String> row : boardDefinition) {
+			List<Symbol> boardDefRow = new ArrayList<Symbol>();
+			for (String symbolString : row) {
 				if (symbolString.equals("o")) {
-					boardDef[i][j] = Symbol.O;
+					boardDefRow.add(Symbol.O);
 				}
 				else if (symbolString.equals("x")) {
-					boardDef[i][j] = Symbol.X;
+					boardDefRow.add(Symbol.X);
 				}
 				else {
-					boardDef[i][j] = Symbol.EMPTY;
+					boardDefRow.add(Symbol.EMPTY);
 				}
 			}
+			boardDef.add(boardDefRow);
 		}
 		return boardDef;
 	}

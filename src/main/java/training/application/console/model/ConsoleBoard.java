@@ -1,42 +1,44 @@
 package training.application.console.model;
 
+import java.util.List;
+
+import com.google.common.base.Function;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+
 import training.core.model.Board;
 
 public class ConsoleBoard extends Board {
-	
+
 	public ConsoleBoard() {
 		super();
 	}
 
-	public ConsoleBoard(Symbol[][] boardDefinition) {
+	public ConsoleBoard(List<List<Symbol>> boardDefinition) {
 		super(boardDefinition);
 	}
 
 	@Override
 	public String toString() {
-		String boardAsString = "";
-		for (int i = 0; i < getBoardDefinition().length; i++) {
-			boardAsString += "|";
-			for (int j = 0; j < getBoardDefinition().length; j++) {
-				Symbol symbol = getBoardDefinition()[j][i];
-				String symbolString = null;
-				if (Symbol.X==symbol) {
-					symbolString = "x";
+		List<String> rows = Lists.newArrayList();
+		for (List<Symbol> row : getBoardDefinition()) {
+			Iterable<String> rowString = Iterables.transform(row, new Function<Symbol, String>() {
+				public String apply(Symbol symbol) {
+					if (Symbol.X.equals(symbol)) {
+						return "x";
+					}
+					else if (Symbol.O.equals(symbol)) {
+						return "o";
+					}
+					else {
+						return "_";
+					}
 				}
-				else if (Symbol.O==symbol) {
-					symbolString = "o";
-				}
-				else if (Symbol.EMPTY==symbol) {
-					symbolString = "_";
-				}
-				boardAsString += " " + symbolString + " |";
-			}
-			boolean hasNextRow = i + 1 < getBoardDefinition().length;
-			if (hasNextRow) {
-				boardAsString += "\r\n";
-			}
+			});
+			rows.add("| "+Joiner.on(" | ").join(rowString)+" |");
 		}
-		return boardAsString;
+		return Joiner.on("\r\n").join(rows);
 	}
 	
 }
