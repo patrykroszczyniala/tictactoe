@@ -11,15 +11,17 @@ import org.junit.Assert;
 import training.application.console.ConsoleGameApplication;
 import training.application.console.model.ConsoleBoard;
 import training.core.model.Board;
-import training.features.core.AppTestSteps;
+import training.features.core.BoardStateSteps;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumber.runtime.java.guice.ScenarioScoped;
 
 /**
  * Unit test for simple App.
  */
+@ScenarioScoped
 public class ConsoleGameApplicationSteps {
 
 	private ConsoleGameApplication consoleApplication;
@@ -65,7 +67,7 @@ public class ConsoleGameApplicationSteps {
 
 	@Then("^empty board should be shown$")
 	public void empty_board_should_be_shown(List<List<String>> expectedBoardDefinition) throws Throwable {
-		Board expectedBoard = new ConsoleBoard(AppTestSteps.convertToArray(expectedBoardDefinition));
+		Board expectedBoard = new ConsoleBoard(BoardStateSteps.convertToArray(expectedBoardDefinition));
 		Assert.assertEquals(expectedBoard, consoleApplication.getGame().getBoard());
 	}
 

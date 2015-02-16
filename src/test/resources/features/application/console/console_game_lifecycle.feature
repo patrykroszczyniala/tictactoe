@@ -105,30 +105,29 @@ Feature: TicTacToe console game lifecycle
     And console application has started
     When user enter unknown command "awesome game"
     Then Message is shown
-    """	
-    Unknown command. Enter "help" if you have some troubles...
-    To start the game enter "start": 
-	"""
+      """
+      Unknown command. Enter "help" if you have some troubles...
+      To start the game enter "start": 
+      """
 
   Scenario: Show info if game has completed but nobody won
     Given console application
     When console board is full
     Then Message is shown
-    """	
-    Game completed but nobody won...
-	Revenge? (y/n): 
-	"""
-	
+      """
+      Game completed but nobody won...
+      Revenge? (y/n): 
+      """
+
   Scenario: User can ask for help in any time
     Given console application
     And user enter help command
     Then Message is shown
-    """
-    I need help!
-    Available commands:
-        break - stop current game
-        exit - exit the game
-        help - show this help
+      """
+      I need help!
+      Available commands:
+          break - stop current game
+          exit - exit the game
+          help - show this help
 
-	"""
-	
+      """
