@@ -4,6 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.junit.Assert;
 
 import training.consoleapp.core.command.CommandFactory;
@@ -14,6 +16,7 @@ import training.consoleapp.core.model.ConsoleBoard;
 import training.core.model.Board;
 import training.core.model.Game;
 import training.features.core.BoardStateSteps;
+import training.features.core.ScenarioState;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -26,27 +29,32 @@ import cucumber.runtime.java.guice.ScenarioScoped;
 @ScenarioScoped
 public class ConsoleCommandSteps {
 
-	private Game game;
 	private CommandFactory commandFactory;
 	private OutputStream outputStream;
 	private MessageInput messageInput;
 	private MessageOutput messageOutput;
-
+	private ScenarioState state;
+	
+	@Inject
+	public ConsoleCommandSteps(ScenarioState state) {
+		this.state = state;
+	}
+	
 	@Before
 	public void before() {
 		outputStream = new ByteArrayOutputStream();
 		messageInput = new MessageInput(outputStream);
 		messageOutput = new MessageOutput(outputStream);
-		game = new Game();
+		state.setGame(new Game());
 	}
 
 	@Given("^command line interface$")
 	public void console_game() throws Throwable {
-		commandFactory = new CommandFactory(game, messageInput, messageOutput);
+		commandFactory = new CommandFactory(state.getGame(), messageInput, messageOutput);
 	}
 	
-	@Given("^application started$")
-	public void application_started() throws Throwable {
+	@Given("^user started the application$")
+	public void user_started_the_application() throws Throwable {
 		commandFactory.create(Command.START_APPLICATION).run();
 	}
 
@@ -55,56 +63,25 @@ public class ConsoleCommandSteps {
 		commandFactory.create(command).run();
 	}
 	
-//	@When("^console application has started$")
-//	public void application_is_started() throws Throwable {
-//		commandFactory.create(Command.START_APPLICATION).run();
-////		new StartConsoleApplicationCommand(messageOutput, messageInput).run();
-//	}
-
-	@Then("^welcome text should be shown$")
-	public void welcome_text_should_be_shown(String welcomeText) throws Throwable {
-		Assert.assertEquals(welcomeText, outputStream.toString());
+	@Then("^text should be shown$")
+	public void text_should_be_shown(String expectedText) throws Throwable {
+		Assert.assertTrue(outputStream.toString().endsWith(expectedText));
+	}
+	
+	@Then("^user is asked \"(.*)\"$")
+	public void user_is_asked(String expectedQuestion) throws Throwable {
+		Assert.assertTrue(outputStream.toString().endsWith(expectedQuestion));
 	}
 
-	@Then("^game should be started$")
-	public void game_should_be_started(String expectedStartText) throws Throwable {
-		Assert.assertTrue(outputStream.toString().endsWith(expectedStartText));
-	}
-
-	@Then("^empty board should be shown$")
-	public void empty_board_should_be_shown(List<List<String>> expectedBoardDefinition) throws Throwable {
+	@Then("^board should be shown$")
+	public void board_should_be_shown(List<List<String>> expectedBoardDefinition) throws Throwable {
 		Board expectedBoard = new ConsoleBoard(BoardStateSteps.convertToArray(expectedBoardDefinition));
-		Assert.assertEquals(expectedBoard, game.getBoard());
+		Assert.assertEquals(expectedBoard, state.getGame().getBoard());
 	}
 
 	@Given("^game started$")
 	public void started_game() throws Throwable {
 		commandFactory.create("start").run();
-	}
-
-	@When("^user enter directions to \"(\\d),(\\d)\"$")
-	public void user_enter_directions_to(int x, int y) throws Throwable {
-		commandFactory.create(x + "," + y).run();
-	}
-
-	@Then("^board with a message should be shown$")
-	public void user_enter_directions_to(String expectedOutput) throws Throwable {
-		Assert.assertTrue(outputStream.toString().endsWith(expectedOutput));
-	}
-
-	@When("^active player make a movement to \\((\\d+),(\\d+)\\)$")
-	public void active_player_make_a_movement_to(int x, int y) throws Throwable {
-		user_enter_directions_to(x, y);
-	}
-
-	@Then("^Next player should be active$")
-	public void next_player_should_be_active() throws Throwable {
-		Assert.assertEquals("X", game.getActivePlayer().toString());
-	}
-
-	@Given("^game$")
-	public void game() throws Throwable {
-		console_game();
 	}
 
 	@When("^game is completed$")
@@ -132,20 +109,9 @@ public class ConsoleCommandSteps {
 		commandFactory.create("2,2").run();
 	}
 
-	@Then("^user is asked to play again$")
-	public void user_is_asked_to_play_again() throws Throwable {
-		Assert.assertTrue(outputStream.toString().endsWith("Do you want to play again? (y/n): "));
-	}
-
 	@Then("^user answers \"(.*?)\"$")
 	public void user_answers(String userAnswer) throws Throwable {
 		commandFactory.create(userAnswer).run();
-	}
-
-	@Then("^Message is shown$")
-	public void message_is_shown(String expectedMessage) throws Throwable {
-		String message = String.format("expected: %s\r\ngot: %s", expectedMessage, outputStream.toString());
-		Assert.assertTrue(message, outputStream.toString().endsWith(expectedMessage));
 	}
 
 	@When("^user enter unknown command \"(.*?)\"$")

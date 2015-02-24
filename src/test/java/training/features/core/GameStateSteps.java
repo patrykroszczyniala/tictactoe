@@ -41,8 +41,8 @@ public class GameStateSteps {
 		state.getGame().move(1, 1);
 	}
 
-	@Then("^player \"(O|X)\" should be active$")
-	public void player_O_should_be_active(String expectedActivePlayer) throws Throwable {
+	@Then("^player (O|X) should be active$")
+	public void player_should_be_active(String expectedActivePlayer) throws Throwable {
 		Assert.assertEquals(expectedActivePlayer, state.getGame().getActivePlayer().toString());
 	}
 
