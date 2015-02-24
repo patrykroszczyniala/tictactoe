@@ -1,4 +1,4 @@
-package training.application.console.model;
+package training.consoleapp.core.model;
 
 import java.util.List;
 

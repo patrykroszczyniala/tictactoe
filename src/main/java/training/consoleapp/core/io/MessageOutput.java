@@ -1,4 +1,4 @@
-package training.application.console.io;
+package training.consoleapp.core.io;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -8,10 +8,10 @@ import java.util.ResourceBundle;
 
 public class MessageOutput {
 
-	protected OutputStream out;
 	protected StringBuilder sb = new StringBuilder();
-
-	public MessageOutput(OutputStream out) {
+	private OutputStream out;
+	
+	public MessageOutput(final OutputStream out) {
 		this.out = out;
 	}
 

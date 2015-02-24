@@ -1,4 +1,4 @@
-package training.application.console.io;
+package training.consoleapp.core.io;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 public class MessageInput extends MessageOutput {
 
 	private String lastMessage = "";
-
+	
 	public MessageInput(OutputStream out) {
 		super(out);
 	}

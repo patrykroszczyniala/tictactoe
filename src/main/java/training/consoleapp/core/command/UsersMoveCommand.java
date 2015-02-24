@@ -1,22 +1,29 @@
-package training.application.console.command;
+package training.consoleapp.core.command;
 
 import java.io.IOException;
 
-import training.application.ApplicationCommand;
-import training.application.console.io.MessageInput;
-import training.application.console.io.MessageOutput;
+import training.consoleapp.core.io.MessageInput;
+import training.consoleapp.core.io.MessageOutput;
 import training.core.GameRuntimeException;
 import training.core.model.Game;
 
 import com.google.common.base.Preconditions;
 
-public class UserDirectionsCommand implements ApplicationCommand {
+public class UsersMoveCommand implements ConsoleCommand {
 
+	private Game game;
+	private MessageInput messageInput;
+	private MessageOutput messageOutput;
 	private Integer x;
 	private Integer y;
 
-	public void run(final Game game, final MessageOutput messageOutput, final MessageInput messageInput)
-			throws IOException {
+	public UsersMoveCommand(Game game, MessageInput messageInput, MessageOutput messageOutput) {
+		this.game = game;
+		this.messageInput = messageInput;
+		this.messageOutput = messageOutput;
+	}
+
+	public void run() throws IOException {
 		Preconditions.checkNotNull(x);
 		Preconditions.checkNotNull(y);
 		try {
@@ -35,7 +42,7 @@ public class UserDirectionsCommand implements ApplicationCommand {
 		}
 	}
 
-	public UserDirectionsCommand setDirections(Integer x, Integer y) {
+	public UsersMoveCommand setDirections(Integer x, Integer y) {
 		this.x = x;
 		this.y = y;
 

@@ -23,7 +23,7 @@ public class Game {
 	private Board board;
 	
 	private Player activePlayer;
-
+	
 	public boolean hasStarted() {
 		return board != null;
 	}

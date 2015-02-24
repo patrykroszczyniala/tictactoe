@@ -50,7 +50,7 @@ public class Board {
 				throw new GameRuntimeException(Warning.POSITION_ALREADY_USED);
 			}
 			boardState.get(y).set(x, symbol);
-		} catch (ArrayIndexOutOfBoundsException e) {
+		} catch (IndexOutOfBoundsException e) {
 			throw new GameRuntimeException(Warning.BOARD_SIZE_EXCEEDED);
 		}
 	}
