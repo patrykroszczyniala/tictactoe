@@ -1,7 +1,5 @@
 package training.consoleapp.core.command;
 
-import java.io.IOException;
-
 import training.consoleapp.core.io.MessageInput;
 import training.consoleapp.core.io.MessageOutput;
 import training.core.GameRuntimeException;
@@ -23,7 +21,7 @@ public class UsersMoveCommand implements ConsoleCommand {
 		this.messageOutput = messageOutput;
 	}
 
-	public void run() throws IOException {
+	public void run() {
 		Preconditions.checkNotNull(x);
 		Preconditions.checkNotNull(y);
 		try {
@@ -39,6 +37,7 @@ public class UsersMoveCommand implements ConsoleCommand {
 			}
 		} catch (GameRuntimeException e) {
 			messageOutput.println(e.getMessage());
+			messageInput.print(messageInput.getLastMessage());
 		}
 	}
 

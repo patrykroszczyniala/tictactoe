@@ -1,7 +1,5 @@
 package training.consoleapp.core.command;
 
-import java.io.IOException;
-
 import training.consoleapp.core.io.MessageInput;
 import training.consoleapp.core.io.MessageOutput;
 
@@ -15,7 +13,7 @@ public class StartApplicationCommand implements ConsoleCommand {
 		this.messageOutput = messageOutput;
 	}
 	
-	public void run() throws IOException {
+	public void run() {
 		messageOutput.show("msg_welcome");
 		messageInput.show("msg_start_game");
 	}

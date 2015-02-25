@@ -7,9 +7,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.junit.Assert;
+import org.junit.Rule;
+import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 
 import training.consoleapp.core.command.CommandFactory;
-import training.consoleapp.core.command.CommandFactory.Command;
 import training.consoleapp.core.io.MessageInput;
 import training.consoleapp.core.io.MessageOutput;
 import training.consoleapp.core.model.ConsoleBoard;
@@ -24,19 +25,22 @@ import cucumber.api.java.en.When;
 import cucumber.runtime.java.guice.ScenarioScoped;
 
 /**
- * Unit test for simple App.
+ * Tests for command-line commands that user can use during application lifecycle.
  */
 @ScenarioScoped
-public class ConsoleCommandSteps {
+public class CommandLineInterfaceCommandsSteps {
 
-	private CommandFactory commandFactory;
+	// TODO does not work with cucumber-jvm?
+	@Rule
+	public final ExpectedSystemExit expectedExit = ExpectedSystemExit.none();
+	
 	private OutputStream outputStream;
 	private MessageInput messageInput;
 	private MessageOutput messageOutput;
 	private ScenarioState state;
 	
 	@Inject
-	public ConsoleCommandSteps(ScenarioState state) {
+	public CommandLineInterfaceCommandsSteps(ScenarioState state) {
 		this.state = state;
 	}
 	
@@ -49,18 +53,21 @@ public class ConsoleCommandSteps {
 	}
 
 	@Given("^command line interface$")
-	public void console_game() throws Throwable {
-		commandFactory = new CommandFactory(state.getGame(), messageInput, messageOutput);
+	public void command_line_interface() throws Throwable {
+		CommandFactory commandFactory = new CommandFactory(state.getGame(), messageInput, messageOutput);
+		state.setCommandFactory(commandFactory);
 	}
 	
-	@Given("^user started the application$")
-	public void user_started_the_application() throws Throwable {
-		commandFactory.create(Command.START_APPLICATION).run();
-	}
-
 	@When("^user entered command (.*)$")
-	public void user_enter_command(String command) throws Throwable {
-		commandFactory.create(command).run();
+	public void user_entered_command(String command) throws Throwable {
+		state.getCommandFactory().create(command).run();
+	}
+	
+	@When("^users entered commands$")
+	public void users_entered_commands(List<String> commands) throws Throwable {
+		for (String command : commands) {
+			state.getCommandFactory().create(command).run();
+		}
 	}
 	
 	@Then("^text should be shown$")
@@ -79,49 +86,14 @@ public class ConsoleCommandSteps {
 		Assert.assertEquals(expectedBoard, state.getGame().getBoard());
 	}
 
-	@Given("^game started$")
-	public void started_game() throws Throwable {
-		commandFactory.create("start").run();
-	}
-
-	@When("^game is completed$")
+	@Then("^game is completed$")
 	public void game_is_completed() throws Throwable {
-		commandFactory.create("start").run();
-		commandFactory.create("0,0").run();
-		commandFactory.create("1,0").run();
-		commandFactory.create("0,1").run();
-		commandFactory.create("1,1").run();
-		commandFactory.create("0,2").run();
-	}
-
-	@When("^console board is full$")
-	public void console_board_is_full() throws Throwable {
-		commandFactory.create("start").run();
-		commandFactory.create("0,0").run();
-		commandFactory.create("0,1").run();
-		commandFactory.create("0,2").run();
-		commandFactory.create("1,0").run();
-		commandFactory.create("1,1").run();
-		commandFactory.create("1,2").run();
-		commandFactory.create("2,0").run();
-		commandFactory.create("2,1").run();
-		commandFactory.create("2,1").run();
-		commandFactory.create("2,2").run();
+		Assert.assertTrue(state.getGame().isCompleted());
 	}
 
 	@Then("^user answers \"(.*?)\"$")
 	public void user_answers(String userAnswer) throws Throwable {
-		commandFactory.create(userAnswer).run();
-	}
-
-	@When("^user enter unknown command \"(.*?)\"$")
-	public void user_enter_unknown_command(String unknownCommand) throws Throwable {
-		commandFactory.create(unknownCommand).run();
-	}
-
-	@When("^user enter help command$")
-	public void user_enter_help_command() throws Throwable {
-		commandFactory.create("help").run();
+		state.getCommandFactory().create(userAnswer).run();
 	}
 
 }

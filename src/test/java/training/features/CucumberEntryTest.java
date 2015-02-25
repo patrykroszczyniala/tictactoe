@@ -9,7 +9,7 @@ import cucumber.api.junit.Cucumber;
  * Unit test for simple App.
  */
 @RunWith(Cucumber.class)
-@CucumberOptions(plugin={"pretty", "html:target/cucumber.html"}, monochrome=true, glue={"training.features"}, features={"src/test/resources/features"})
+@CucumberOptions(plugin={"pretty", "html:target/cucumber.html"}, monochrome=true, glue={"training.features"}, features={"src/test/resources/features"}, tags={"~@ignore"})
 public class CucumberEntryTest {
 
 }

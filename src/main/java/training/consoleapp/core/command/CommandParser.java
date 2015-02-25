@@ -2,6 +2,7 @@ package training.consoleapp.core.command;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,18 +22,16 @@ public class CommandParser {
 		patterns.put(Command.USERS_MOVE, "(\\d),(\\d)");
 		patterns.put(Command.START_GAME, "y|start");
 		patterns.put(Command.HELP, "help");
+		patterns.put(Command.EXIT_APPLICATION, "exit");
 	}
 
 	public Command parse(String command) {
-		if (matches(patterns.get(Command.HELP), command)) {
-			return Command.HELP;
-		} else if (matches(patterns.get(Command.START_GAME), command)) {
-			return Command.START_GAME;
-		} else if (matches(patterns.get(Command.USERS_MOVE), command)) {
-			return Command.USERS_MOVE;
-		} else {
-			return Command.UNKNOWN_COMMAND;
+		for (Entry<Command, String> patternDefinition : patterns.entrySet()) {
+			if (matches(patternDefinition.getValue(), command)) {
+				return patternDefinition.getKey();
+			}
 		}
+		return Command.UNKNOWN_COMMAND;
 	}
 
 	public String group(int group) {

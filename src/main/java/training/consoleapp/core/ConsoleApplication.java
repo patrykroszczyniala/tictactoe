@@ -1,6 +1,5 @@
 package training.consoleapp.core;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 
@@ -22,7 +21,7 @@ public class ConsoleApplication {
 		this.commandFactory = commandFactory;
 	}
 
-	public void start() throws IOException {
+	public void start() {
 		commandFactory.create(Command.START_APPLICATION).run();
 		Scanner scanner = new Scanner(in);
 		while (scanner.hasNext()) {

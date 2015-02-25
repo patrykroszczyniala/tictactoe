@@ -15,7 +15,7 @@ import training.core.model.Game;
 public final class CommandFactory {
 
 	public enum Command {
-		USERS_MOVE, START_GAME, HELP, UNKNOWN_COMMAND, START_APPLICATION;
+		USERS_MOVE, START_GAME, HELP, UNKNOWN_COMMAND, START_APPLICATION, EXIT_APPLICATION;
 	}
 
 	private Map<Command, ConsoleCommand> commands = new HashMap<CommandFactory.Command, ConsoleCommand>();
@@ -26,6 +26,7 @@ public final class CommandFactory {
 		commands.put(Command.USERS_MOVE, new UsersMoveCommand(game, messageInput, messageOutput));
 		commands.put(Command.UNKNOWN_COMMAND, new UnknownCommand(messageOutput, messageInput));
 		commands.put(Command.START_APPLICATION, new StartApplicationCommand(messageOutput, messageInput));
+		commands.put(Command.EXIT_APPLICATION, new ExitApplicationCommand(messageOutput));
 	}
 
 	public ConsoleCommand create(Command command) {

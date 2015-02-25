@@ -15,33 +15,41 @@ public class MessageOutput {
 		this.out = out;
 	}
 
-	public void show(String messageKey) throws IOException {
+	public void show(String messageKey) {
 		String msg = ResourceBundle.getBundle("messages", Locale.ENGLISH).getString(messageKey);
-		out.write(msg.getBytes());
+		write(msg);
 	}
 
-	public void show(String messageKey, String... args) throws IOException {
+	public void show(String messageKey, String... args) {
 		String msgFormat = ResourceBundle.getBundle("messages", Locale.ENGLISH).getString(messageKey);
 		MessageFormat mf = new MessageFormat(msgFormat);
 		mf.applyPattern(msgFormat);
 		String msg = mf.format(args);
-		out.write(msg.getBytes());
+		write(msg);
 	}
 
-	public void show() throws IOException {
-		out.write(sb.toString().getBytes());
+	public void show() {
+		write(sb.toString());
 	}
 
-	public void println(String msg) throws IOException {
+	public void println(String msg) {
 		sb.setLength(0);
 		sb.append(msg).append("\r\n");
 		show();
 	}
 	
-	public void print(String msg) throws IOException {
+	public void print(String msg) {
 		sb.setLength(0);
 		sb.append(msg);
 		show();
+	}
+	
+	protected void write(String msg) {
+		try {
+			out.write(msg.getBytes());
+		} catch (IOException e) {
+			throw new IllegalStateException(e.getMessage());
+		}
 	}
 
 }

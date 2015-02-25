@@ -1,7 +1,5 @@
 package training.consoleapp.core.command;
 
-import java.io.IOException;
-
 import training.consoleapp.core.io.MessageInput;
 import training.consoleapp.core.io.MessageOutput;
 
@@ -15,7 +13,7 @@ public class UnknownCommand implements ConsoleCommand {
 		this.messageOutput = messageOutput;
 	}
 
-	public void run() throws IOException {
+	public void run() {
 		messageOutput.show("wrn_unknown_command");
 		messageInput.print(messageInput.getLastMessage());
 	}

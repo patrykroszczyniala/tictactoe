@@ -1,16 +1,11 @@
-Feature: TicTacToe console application lifecycle
+Feature: Command-line commands that user can use during application lifecycle
+  In order to be able to play the game
+  As a user
+  I want to use commands that will let me use the application and game
 
-  Scenario: Welcome text should be shown after starting application
+  Scenario: Game should be started after entering 'start' command
     Given command line interface
-    When user started the application
-    Then text should be shown
-      """
-      Welcome in a Tic-Tac-Toe game!
-      To start the game enter "start": 
-      """
-
-  Scenario: User should be able to make a move after starting the game
-    Given command line interface
+    And user started the application
     When user entered command start
     Then text should be shown
       """
@@ -24,39 +19,25 @@ Feature: TicTacToe console application lifecycle
       Player 'O' move.
       Enter your directions (x,y): 
       """
-    And board should be shown
-      | _ | _ | _ |
-      | _ | _ | _ |
-      | _ | _ | _ |
 
-  Scenario: Board with a pawn at 1,2 should be shown after users move to 1,2
+  Scenario: User should be able to make a move using command x,y (eg. 2,2)
     Given command line interface
-    And user entered command start
-    When user entered command 1,2
+    And user started the application
+    When user entered command start
+    And user entered command 2,2
     Then text should be shown
       """
+      Current board:
       | _ | _ | _ |
       | _ | _ | _ |
-      | _ | o | _ |
+      | _ | _ | o |
       Player 'X' move.
       Enter your directions (x,y): 
       """
 
-  Scenario: Board with a pawn at 1,0 should be shown after users move to 1,0
+  Scenario: After active player move next player should be active
     Given command line interface
-    And user entered command start
-    When user entered command 1,0
-    Then text should be shown
-      """
-      | _ | o | _ |
-      | _ | _ | _ |
-      | _ | _ | _ |
-      Player 'X' move.
-      Enter your directions (x,y): 
-      """
-
-  Scenario: After active player movement next player should be active
-    Given command line interface
+    And user started the application
     And user entered command start
     When user entered command 1,1
     Then player X should be active
@@ -71,14 +52,29 @@ Feature: TicTacToe console application lifecycle
 
   Scenario: After completed game user is asked to play again
     Given command line interface
-    When game is completed
-    Then user is asked "Do you want to play again? (y/n): "
+    And user started the application
+    And users entered commands
+      | start |
+      | 0,0   |
+      | 1,0   |
+      | 0,1   |
+      | 1,1   |
+      | 0,2   |
+    Then game is completed
+    And user is asked "Do you want to play again? (y/n): "
 
   Scenario: After completed game user can restart game by entering 'y'
     Given command line interface
-    When game is completed
+    And user started the application
+    And users entered commands
+      | start |
+      | 0,0   |
+      | 1,0   |
+      | 0,1   |
+      | 1,1   |
+      | 0,2   |
     And user is asked "Do you want to play again? (y/n): "
-    And user answers "y"
+    When user answers "y"
     Then text should be shown
       """
       Game has been started.
@@ -92,9 +88,16 @@ Feature: TicTacToe console application lifecycle
       Enter your directions (x,y): 
       """
 
-  Scenario: After completed game congratulations are shown
+  Scenario: After winning the game, congratulations are shown
     Given command line interface
-    When game is completed
+    And user started the application
+    When users entered commands
+      | start |
+      | 0,0   |
+      | 1,0   |
+      | 0,1   |
+      | 1,1   |
+      | 0,2   |
     Then text should be shown
       """
       Game finished!
@@ -103,19 +106,30 @@ Feature: TicTacToe console application lifecycle
       Do you want to play again? (y/n): 
       """
 
-  Scenario: Show 'unknown command' message if user entered wrong command
+  Scenario: Show appropiate information to user if entered wrong command
     Given command line interface
     And user started the application
-    When user enter unknown command "awesome game"
+    When user entered command awesome game
     Then text should be shown
       """
       Unknown command. Enter "help" if you have some troubles...
       To start the game enter "start": 
       """
 
-  Scenario: Show 'revenge' information if game has completed but nobody won
+  Scenario: Show 'revenge' information if game has finished but nobody won
     Given command line interface
-    When console board is full
+    And user started the application
+    And users entered commands
+      | start |
+      | 0,0   |
+      | 0,1   |
+      | 0,2   |
+      | 1,0   |
+      | 1,1   |
+      | 1,2   |
+      | 2,0   |
+      | 2,1   |
+      | 2,2   |
     Then text should be shown
       """
       Game completed but nobody won...
@@ -124,7 +138,8 @@ Feature: TicTacToe console application lifecycle
 
   Scenario: User can ask for help in any time
     Given command line interface
-    And user enter help command
+    And user started the application
+    And user entered command help
     Then text should be shown
       """
       I need help!
@@ -133,4 +148,17 @@ Feature: TicTacToe console application lifecycle
           exit - exit the game
           help - show this help
 
+      """
+
+  Scenario: User can not make a move to already used cell
+    Given command line interface
+    And user started the application
+    When users entered commands
+      | start |
+      | 0,0   |
+      | 0,0   |
+    Then text should be shown
+      """
+      This position is already used!
+      Enter your directions (x,y): 
       """

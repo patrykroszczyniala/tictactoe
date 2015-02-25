@@ -13,6 +13,6 @@ public interface ConsoleCommand {
 	 * Executes command-line command.
 	 * @throws IOException
 	 */
-	void run() throws IOException;
+	void run();
 	
 }
