@@ -115,21 +115,20 @@ Feature: Command-line commands that user can use during application lifecycle
       Unknown command. Enter "help" if you have some troubles...
       To start the game enter "start": 
       """
-
   Scenario: Show 'revenge' information if game has finished but nobody won
     Given command line interface
     And user started the application
     And users entered commands
       | start |
       | 0,0   |
-      | 0,1   |
-      | 0,2   |
-      | 1,0   |
-      | 1,1   |
-      | 1,2   |
-      | 2,0   |
-      | 2,1   |
-      | 2,2   |
+	  | 0,1   |
+	  | 0,2   |
+	  | 1,0   |
+	  | 2,0   |
+	  | 1,1   |
+	  | 2,1   |
+	  | 2,2   |
+	  | 1,2   |
     Then text should be shown
       """
       Game completed but nobody won...

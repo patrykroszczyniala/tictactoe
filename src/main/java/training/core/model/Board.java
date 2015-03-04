@@ -6,8 +6,6 @@ import java.util.List;
 import training.core.GameRuntimeException;
 import training.core.GameRuntimeException.Warning;
 
-import com.google.common.collect.Lists;
-
 /**
  * Class that represents game board.
  */
@@ -62,32 +60,6 @@ public class Board {
 			}
 		}
 		return true;
-	}
-
-	// TODO
-	public boolean isWinner() {
-		List<Boolean> wins = new ArrayList<Boolean>();
-		wins.add(boardState.get(0).equals(Lists.newArrayList(Symbol.O, Symbol.O, Symbol.O)));
-		wins.add(boardState.get(1).equals(Lists.newArrayList(Symbol.O, Symbol.O, Symbol.O)));
-		wins.add(boardState.get(2).equals(Lists.newArrayList(Symbol.O, Symbol.O, Symbol.O)));
-		wins.add(boardState.get(0).equals(Lists.newArrayList(Symbol.X, Symbol.X, Symbol.X)));
-		wins.add(boardState.get(1).equals(Lists.newArrayList(Symbol.X, Symbol.X, Symbol.X)));
-		wins.add(boardState.get(2).equals(Lists.newArrayList(Symbol.X, Symbol.X, Symbol.X)));
-
-		wins.add(Lists.newArrayList(boardState.get(0).get(0), boardState.get(1).get(0), boardState.get(2).get(0))
-				.equals(Lists.newArrayList(Symbol.X, Symbol.X, Symbol.X)));
-		wins.add(Lists.newArrayList(boardState.get(0).get(1), boardState.get(1).get(1), boardState.get(2).get(1))
-				.equals(Lists.newArrayList(Symbol.X, Symbol.X, Symbol.X)));
-		wins.add(Lists.newArrayList(boardState.get(0).get(2), boardState.get(1).get(2), boardState.get(2).get(2))
-				.equals(Lists.newArrayList(Symbol.X, Symbol.X, Symbol.X)));
-		wins.add(Lists.newArrayList(boardState.get(0).get(0), boardState.get(1).get(0), boardState.get(2).get(0))
-				.equals(Lists.newArrayList(Symbol.O, Symbol.O, Symbol.O)));
-		wins.add(Lists.newArrayList(boardState.get(0).get(1), boardState.get(1).get(1), boardState.get(2).get(1))
-				.equals(Lists.newArrayList(Symbol.O, Symbol.O, Symbol.O)));
-		wins.add(Lists.newArrayList(boardState.get(0).get(2), boardState.get(1).get(2), boardState.get(2).get(2))
-				.equals(Lists.newArrayList(Symbol.O, Symbol.O, Symbol.O)));
-
-		return wins.contains(Boolean.TRUE);
 	}
 
 	@Override

@@ -46,7 +46,7 @@ public class BoardStateSteps {
 	@When("^player made a move to \\((\\d),(\\d)\\)$")
 	public void player_made_a_move_to(int x, int y) throws Throwable {
 		try {
-			state.getGame().move(x, y);
+			state.getGame().mark(x, y);
 		} catch (GameRuntimeException e) {
 			this.lastWarning = e;
 		}

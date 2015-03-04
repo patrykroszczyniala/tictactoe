@@ -1,10 +1,13 @@
 package training.features.core;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.junit.Assert;
 
 import training.core.model.Board;
+import training.core.model.Board.Symbol;
 import training.core.model.Game;
 import training.core.model.Game.Player;
 import cucumber.api.java.en.Given;
@@ -38,7 +41,16 @@ public class GameStateSteps {
 
 	@When("^active player made a move$")
 	public void active_player_made_a_move() throws Throwable {
-		state.getGame().move(1, 1);
+		state.getGame().mark(1, 1);
+	}
+	
+	@When("^players made a moves$")
+	public void player_made_a_moves(List<String> moves) throws Throwable {
+		for (String move : moves) {
+			int x = Integer.valueOf(move.substring(0, 1).trim());
+			int y = Integer.valueOf(move.substring(2, 3).trim());
+			state.getGame().mark(x, y);
+		}
 	}
 
 	@Then("^player (O|X) should be active$")
@@ -48,12 +60,17 @@ public class GameStateSteps {
 
 	@When("^Active player make a move to \\((\\d+),(\\d+)\\)$")
 	public void active_player_make_a_move_to(int x, int y) throws Throwable {
-		state.getGame().move(x, y);
+		state.getGame().mark(x, y);
 	}
 
 	@Then("^Active player is the winner$")
 	public void active_player_is_the_winner() throws Throwable {
 		Assert.assertEquals(Player.O, state.getGame().getWinner());
+	}
+	
+	@Then("^player '(O|X)' is the winner$")
+	public void player_is_the_winner(String playerSymbol) throws Throwable {
+		Assert.assertEquals(Symbol.valueOf(playerSymbol), state.getGame().getWinner().getSymbol());
 	}
 
 }

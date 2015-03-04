@@ -1,6 +1,7 @@
 package training.core.model;
 
 import training.core.GameRuntimeException;
+import training.core.ScoreTable;
 import training.core.model.Board.Symbol;
 
 public class Game {
@@ -21,7 +22,7 @@ public class Game {
 	}
 
 	private Board board;
-	
+	private ScoreTable scoreTable;
 	private Player activePlayer;
 	
 	public boolean hasStarted() {
@@ -31,11 +32,13 @@ public class Game {
 	public void start(Board board) {
 		this.board = board;
 		this.activePlayer = Player.O;
+		this.scoreTable = new ScoreTable(Player.O, Player.X);
 	}
 
-	public void move(int x, int y) throws GameRuntimeException {
+	public void mark(int x, int y) throws GameRuntimeException {
 		board.setPosition(x, y, getActivePlayer().getSymbol());
-		if (getWinner() != null) {
+		scoreTable.calculate(activePlayer, x, y);
+		if (scoreTable.isWinner(activePlayer)) {
 			return;
 		}
 		setActivePlayer(activePlayer == Player.O ? Player.X : Player.O);
@@ -58,7 +61,7 @@ public class Game {
 	}
 
 	public boolean isWinner() {
-		return board.isWinner();
+		return scoreTable.isWinner(activePlayer);
 	}
 
 	public boolean isFull() {
@@ -66,7 +69,7 @@ public class Game {
 	}
 
 	public Player getWinner() {
-		if (board.isWinner()) {
+		if (scoreTable.isWinner(activePlayer)) {
 			return activePlayer;
 		}
 		return null;

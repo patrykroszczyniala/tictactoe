@@ -25,7 +25,7 @@ public class UsersMoveCommand implements ConsoleCommand {
 		Preconditions.checkNotNull(x);
 		Preconditions.checkNotNull(y);
 		try {
-			game.move(x, y);
+			game.mark(x, y);
 			if (game.isWinner()) {
 				messageOutput.show("msg_game_completed_winner", game.getWinner().toString());
 			} else if (game.isFull()) {
