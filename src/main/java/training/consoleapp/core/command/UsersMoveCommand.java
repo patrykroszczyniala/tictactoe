@@ -31,8 +31,8 @@ public class UsersMoveCommand implements ConsoleCommand {
 			} else if (game.isFull()) {
 				messageOutput.show("msg_game_completed_full");
 			} else {
-				messageOutput.show("msg_next_player_move", game.getBoard().toString(), game.getActivePlayer()
-						.toString());
+				messageOutput.show("msg_next_player_move", game.getActivePlayer()
+						.toString(),  game.getBoard().toString());
 				messageInput.show("msg_enter_directions");
 			}
 		} catch (GameRuntimeException e) {

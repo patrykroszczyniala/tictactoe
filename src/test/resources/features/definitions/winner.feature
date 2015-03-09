@@ -1,4 +1,4 @@
-Feature: Winner is one of two players who first mark cells on board in horizontal, vertical or diagonal position.
+Feature: Winner is a player who first mark cells on board in a horizontal, vertical or diagonal position.
 
   Scenario: The winner is user who marked column with the same symbols
     Given a game with an empty board

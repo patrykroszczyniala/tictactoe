@@ -39,11 +39,6 @@ public class GameStateSteps {
 		state.getGame().start(new Board());
 	}
 
-	@When("^active player made a move$")
-	public void active_player_made_a_move() throws Throwable {
-		state.getGame().mark(1, 1);
-	}
-	
 	@When("^players made a moves$")
 	public void player_made_a_moves(List<String> moves) throws Throwable {
 		for (String move : moves) {
@@ -56,11 +51,6 @@ public class GameStateSteps {
 	@Then("^player (O|X) should be active$")
 	public void player_should_be_active(String expectedActivePlayer) throws Throwable {
 		Assert.assertEquals(expectedActivePlayer, state.getGame().getActivePlayer().toString());
-	}
-
-	@When("^Active player make a move to \\((\\d+),(\\d+)\\)$")
-	public void active_player_make_a_move_to(int x, int y) throws Throwable {
-		state.getGame().mark(x, y);
 	}
 
 	@Then("^Active player is the winner$")

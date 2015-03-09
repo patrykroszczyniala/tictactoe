@@ -10,13 +10,17 @@ Feature: Command-line commands that user can use during application lifecycle
     Then text should be shown
       """
       Game has been started.
-      Player 'O' starts the game.
       
-      Current board:
-      | _ | _ | _ |
-      | _ | _ | _ |
-      | _ | _ | _ |
       Player 'O' move.
+      *****************
+      *               *
+      *     |   |     *
+      *  ---+---+---  *
+      *     |   |     *
+      *  ---+---+---  *
+      *     |   |     *
+      *               *
+      *****************
       Enter your directions (x,y): 
       """
 
@@ -27,11 +31,16 @@ Feature: Command-line commands that user can use during application lifecycle
     And user entered command 2,2
     Then text should be shown
       """
-      Current board:
-      | _ | _ | _ |
-      | _ | _ | _ |
-      | _ | _ | o |
       Player 'X' move.
+      *****************
+      *               *
+      *     |   |     *
+      *  ---+---+---  *
+      *     |   |     *
+      *  ---+---+---  *
+      *     |   | o   *
+      *               *
+      *****************
       Enter your directions (x,y): 
       """
 
@@ -43,10 +52,16 @@ Feature: Command-line commands that user can use during application lifecycle
     Then player X should be active
     And text should be shown
       """
-      | _ | _ | _ |
-      | _ | o | _ |
-      | _ | _ | _ |
       Player 'X' move.
+      *****************
+      *               *
+      *     |   |     *
+      *  ---+---+---  *
+      *     | o |     *
+      *  ---+---+---  *
+      *     |   |     *
+      *               *
+      *****************
       Enter your directions (x,y): 
       """
 
@@ -78,13 +93,17 @@ Feature: Command-line commands that user can use during application lifecycle
     Then text should be shown
       """
       Game has been started.
-      Player 'O' starts the game.
       
-      Current board:
-      | _ | _ | _ |
-      | _ | _ | _ |
-      | _ | _ | _ |
       Player 'O' move.
+      *****************
+      *               *
+      *     |   |     *
+      *  ---+---+---  *
+      *     |   |     *
+      *  ---+---+---  *
+      *     |   |     *
+      *               *
+      *****************
       Enter your directions (x,y): 
       """
 

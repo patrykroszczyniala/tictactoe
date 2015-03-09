@@ -27,18 +27,21 @@ public class ConsoleBoard extends Board {
 				public String apply(Symbol symbol) {
 					if (Symbol.X.equals(symbol)) {
 						return "x";
-					}
-					else if (Symbol.O.equals(symbol)) {
+					} else if (Symbol.O.equals(symbol)) {
 						return "o";
-					}
-					else {
-						return "_";
+					} else {
+						return " ";
 					}
 				}
 			});
-			rows.add("| "+Joiner.on(" | ").join(rowString)+" |");
+			rows.add("*   " + Joiner.on(" | ").join(rowString) + "   *");
 		}
-		return Joiner.on("\r\n").join(rows);
+		String result = "*****************\r\n";
+		result += "*               *\r\n";
+		result += Joiner.on("\r\n*  ---+---+---  *\r\n").join(rows);
+		result += "\r\n*               *\r\n";
+		result += "*****************\r\n";
+		return result;
 	}
-	
+
 }

@@ -8,5 +8,5 @@ Feature: TicTacToe rules
   Scenario: Player 'X' has a second movement
     Given new game
     When game has started
-    And active player made a move
+    And active player made a move to 1,1
     Then player X should be active

@@ -19,7 +19,8 @@ public class StartGameCommand implements ConsoleCommand {
 
 	public void run() {
 		game.start(new ConsoleBoard());
-		messageOutput.show("msg_game_started", game.getActivePlayer().toString(), game.getBoard().toString(), game.getActivePlayer().toString());
+		messageOutput.show("msg_game_started");
+		messageOutput.show("msg_next_player_move", game.getActivePlayer().toString(), game.getBoard().toString());
 		messageInput.show("msg_enter_directions");
 	}
 

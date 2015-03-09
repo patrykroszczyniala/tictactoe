@@ -43,8 +43,8 @@ public class BoardStateSteps {
 		state.getGame().start(new Board(convertToArray(boardDefinition)));
 	}
 
-	@When("^player made a move to \\((\\d),(\\d)\\)$")
-	public void player_made_a_move_to(int x, int y) throws Throwable {
+	@When("^active player made a move to (\\d),(\\d)$")
+	public void active_player_made_a_move_to(int x, int y) throws Throwable {
 		try {
 			state.getGame().mark(x, y);
 		} catch (GameRuntimeException e) {

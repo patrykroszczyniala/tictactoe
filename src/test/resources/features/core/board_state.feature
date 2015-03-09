@@ -2,7 +2,7 @@ Feature: TicTacToe rules
 
   Scenario: Board state equals to user positions
     Given a game with an empty board
-    When player made a move to (0,0)
+    When active player made a move to 0,0
     Then board should be equal to
       | o | _ | _ |
       | _ | _ | _ |
@@ -13,7 +13,7 @@ Feature: TicTacToe rules
       | _ | o | _ |
       | _ | _ | _ |
       | _ | _ | _ |
-    When player made a move to (2,1)
+    When active player made a move to 2,1
     Then board should be equal to
       | _ | o | _ |
       | _ | _ | o |
@@ -24,7 +24,7 @@ Feature: TicTacToe rules
       | _ | _ | _ |
       | _ | _ | o |
       | _ | _ | _ |
-    When player made a move to (2,1)
+    When active player made a move to 2,1
     Then error should be shown "This position is already used!"
 
   Scenario: Board is full if every cell is occupied
@@ -32,5 +32,5 @@ Feature: TicTacToe rules
       | o | o | x |
       | x | x | o |
       | o | x | _ |
-    When player made a move to (2,2)
+    When active player made a move to 2,2
     Then board is full
