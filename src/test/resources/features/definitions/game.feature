@@ -3,9 +3,20 @@ Feature: Tic-tac-toe is a game where two players can play on a 3x3 board. Player
   Scenario: Two players can play tic-tac-toe game
     Given a game with an empty board
     When players made a moves
-    | 0,0 |
-    | 0,1 |
+      | 0,0 |
+      | 0,1 |
     Then board should be equal to
       | o | _ | _ |
       | x | _ | _ |
       | _ | _ | _ |
+
+  Scenario: Player 'O' starts the game
+    Given new game
+    When game has started
+    Then player O should be active
+
+  Scenario: Player 'X' has a second move
+    Given new game
+    When game has started
+    And active player made a move to 1,1
+    Then player X should be active

@@ -58,7 +58,7 @@ public class BoardStateSteps {
 		Assert.assertTrue("Boards aren't equal!", isEqual);
 	}
 
-	@Then("^error should be shown \"(.*?)\"$")
+	@Then("^error should be returned \"(.*?)\"$")
 	public void error_should_be_shown(String expectedWarning) throws Throwable {
 		Assert.assertEquals(expectedWarning, lastWarning.getMessage());
 	}
