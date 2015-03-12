@@ -11,11 +11,12 @@ import org.junit.Rule;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 
 import training.consoleapp.core.command.CommandFactory;
+import training.consoleapp.core.command.CommandFactory.Command;
 import training.consoleapp.core.io.MessageInput;
 import training.consoleapp.core.io.MessageOutput;
 import training.consoleapp.core.model.ConsoleBoard;
+import training.core.GameService;
 import training.core.model.Board;
-import training.core.model.Game;
 import training.features.core.BoardStateSteps;
 import training.features.core.ScenarioState;
 import cucumber.api.java.Before;
@@ -49,13 +50,18 @@ public class CommandLineInterfaceCommandsSteps {
 		outputStream = new ByteArrayOutputStream();
 		messageInput = new MessageInput(outputStream);
 		messageOutput = new MessageOutput(outputStream);
-		state.setGame(new Game());
+		state.setGameService(new GameService());
 	}
 
 	@Given("^command line interface$")
 	public void command_line_interface() throws Throwable {
-		CommandFactory commandFactory = new CommandFactory(state.getGame(), messageInput, messageOutput);
+		CommandFactory commandFactory = new CommandFactory(state.getGameService(), messageInput, messageOutput);
 		state.setCommandFactory(commandFactory);
+	}
+	
+	@Given("^user started the application$")
+	public void user_started_the_application() throws Throwable {
+		state.getCommandFactory().create(Command.START_APPLICATION).run();
 	}
 	
 	@When("^user entered command (.*)$")
@@ -72,7 +78,7 @@ public class CommandLineInterfaceCommandsSteps {
 	
 	@Then("^text should be shown$")
 	public void text_should_be_shown(String expectedText) throws Throwable {
-		Assert.assertTrue(outputStream.toString().endsWith(expectedText));
+		Assert.assertTrue("Expected:\r\n"+expectedText+"\r\n\r\nreturned:\r\n"+outputStream.toString(), outputStream.toString().endsWith(expectedText));
 	}
 	
 	@Then("^user is asked \"(.*)\"$")
@@ -83,12 +89,12 @@ public class CommandLineInterfaceCommandsSteps {
 	@Then("^board should be shown$")
 	public void board_should_be_shown(List<List<String>> expectedBoardDefinition) throws Throwable {
 		Board expectedBoard = new ConsoleBoard(BoardStateSteps.convertToArray(expectedBoardDefinition));
-		Assert.assertEquals(expectedBoard, state.getGame().getBoard());
+		Assert.assertEquals(expectedBoard, state.getGameService().getGame().getBoard());
 	}
 
 	@Then("^game is completed$")
 	public void game_is_completed() throws Throwable {
-		Assert.assertTrue(state.getGame().isCompleted());
+		Assert.assertTrue(state.getGameService().isCompleted());
 	}
 
 	@Then("^user answers \"(.*?)\"$")

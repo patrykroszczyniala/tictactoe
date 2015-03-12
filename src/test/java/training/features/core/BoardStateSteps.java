@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.junit.Assert;
 
 import training.core.GameRuntimeException;
+import training.core.GameService;
 import training.core.model.Board;
 import training.core.model.Board.Symbol;
 import training.core.model.Game;
@@ -33,20 +34,21 @@ public class BoardStateSteps {
 	
 	@Given("^a game with an empty board$")
 	public void a_game_with_an_empty_board() throws Throwable {
-		state.setGame(new Game());
-		state.getGame().start(new Board());
+		state.setGameService(new GameService());
+		state.getGameService().start(new Game(new Board()));
 	}
 
 	@Given("^a game with a board$")
 	public void a_game_with_a_board(List<List<String>> boardDefinition) throws Throwable {
-		state.setGame(new Game());
-		state.getGame().start(new Board(convertToArray(boardDefinition)));
+		Board board = new Board(convertToArray(boardDefinition));
+		state.setGameService(new GameService());
+		state.getGameService().start(new Game(board));
 	}
 
 	@When("^active player made a move to (\\d),(\\d)$")
 	public void active_player_made_a_move_to(int x, int y) throws Throwable {
 		try {
-			state.getGame().mark(x, y);
+			state.getGameService().mark(x, y);
 		} catch (GameRuntimeException e) {
 			this.lastWarning = e;
 		}
@@ -54,7 +56,7 @@ public class BoardStateSteps {
 
 	@Then("^board should be equal to$")
 	public void board_should_be_equal_to(List<List<String>> boardDefinition) throws Throwable {
-		boolean isEqual = state.getGame().getBoard().equals(new Board(convertToArray(boardDefinition)));
+		boolean isEqual = state.getGameService().getGame().getBoard().equals(new Board(convertToArray(boardDefinition)));
 		Assert.assertTrue("Boards aren't equal!", isEqual);
 	}
 
@@ -65,7 +67,7 @@ public class BoardStateSteps {
 	
 	@Then("^board is full$")
 	public void board_is_completed() throws Throwable {
-		Assert.assertTrue(state.getGame().getBoard().isFull());
+		Assert.assertTrue(state.getGameService().getGame().getBoard().isFull());
 	}
 	
 	public static List<List<Symbol>> convertToArray(List<List<String>> boardDefinition) {

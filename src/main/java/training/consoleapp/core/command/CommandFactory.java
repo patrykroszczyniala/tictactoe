@@ -5,7 +5,7 @@ import java.util.Map;
 
 import training.consoleapp.core.io.MessageInput;
 import training.consoleapp.core.io.MessageOutput;
-import training.core.model.Game;
+import training.core.GameService;
 
 /**
  * Creates command-line commands.
@@ -20,10 +20,10 @@ public final class CommandFactory {
 
 	private Map<Command, ConsoleCommand> commands = new HashMap<CommandFactory.Command, ConsoleCommand>();
 
-	public CommandFactory(final Game game, final MessageInput messageInput, final MessageOutput messageOutput) {
-		commands.put(Command.START_GAME, new StartGameCommand(game, messageInput, messageOutput));
+	public CommandFactory(final GameService gameService, final MessageInput messageInput, final MessageOutput messageOutput) {
+		commands.put(Command.START_GAME, new StartGameCommand(gameService, messageInput, messageOutput));
 		commands.put(Command.HELP, new HelpCommand(messageOutput));
-		commands.put(Command.USERS_MOVE, new UsersMoveCommand(game, messageInput, messageOutput));
+		commands.put(Command.USERS_MOVE, new UsersMoveCommand(gameService, messageInput, messageOutput));
 		commands.put(Command.UNKNOWN_COMMAND, new UnknownCommand(messageOutput, messageInput));
 		commands.put(Command.START_APPLICATION, new StartApplicationCommand(messageOutput, messageInput));
 		commands.put(Command.EXIT_APPLICATION, new ExitApplicationCommand(messageOutput));
