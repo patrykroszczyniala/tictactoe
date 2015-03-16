@@ -19,7 +19,7 @@ Player 'O' move.
 *     |   |     *
 *               *
 *****************
-Enter your directions (x,y): 0,0
+Enter your directions (0-8): 0
 
 
 Player 'X' move.
@@ -32,6 +32,6 @@ Player 'X' move.
 *     |   |     *
 *               *
 *****************
-Enter your directions (x,y):
+Enter your directions (0-8):
 [...]
 ```
