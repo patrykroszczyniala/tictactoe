@@ -87,7 +87,7 @@ public class CommandLineInterfaceCommandsSteps {
 	}
 
 	@Then("^board should be shown$")
-	public void board_should_be_shown(List<List<String>> expectedBoardDefinition) throws Throwable {
+	public void board_should_be_shown(List<String> expectedBoardDefinition) throws Throwable {
 		Board expectedBoard = new ConsoleBoard(BoardStateSteps.convertToArray(expectedBoardDefinition));
 		Assert.assertEquals(expectedBoard, state.getGameService().getGame().getBoard());
 	}

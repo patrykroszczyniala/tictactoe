@@ -9,7 +9,7 @@ Feature: Board is a 3x3 grid where players can make a moves / mark cells
 
   Scenario: Player can mark a cell on board
     Given a game with an empty board
-    When active player made a move to 1,1
+    When active player made a move to 4
     Then board should be equal to
       | _ | _ | _ |
       | _ | o | _ |
@@ -20,7 +20,7 @@ Feature: Board is a 3x3 grid where players can make a moves / mark cells
       | _ | _ | _ |
       | _ | _ | o |
       | _ | _ | _ |
-    When active player made a move to 2,1
+    When active player made a move to 5
     Then error should be returned "This position is already used!"
 
   Scenario: Board is filled if every cell is marked
@@ -28,7 +28,7 @@ Feature: Board is a 3x3 grid where players can make a moves / mark cells
       | o | o | x |
       | x | x | o |
       | o | x | _ |
-    When active player made a move to 2,2
+    When active player made a move to 8
     Then board is full
 
   Scenario: Board state responds to users positions
@@ -36,7 +36,7 @@ Feature: Board is a 3x3 grid where players can make a moves / mark cells
       | _ | o | _ |
       | _ | _ | _ |
       | _ | _ | _ |
-    When active player made a move to 2,1
+    When active player made a move to 5
     Then board should be equal to
       | _ | o | _ |
       | _ | _ | o |

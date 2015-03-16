@@ -1,6 +1,5 @@
 package training.core.model;
 
-import training.core.model.Board.Symbol;
 
 public enum Player {
 	O(Symbol.O), X(Symbol.X);

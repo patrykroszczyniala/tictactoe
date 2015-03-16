@@ -2,12 +2,13 @@ package training.consoleapp.core.model;
 
 import java.util.List;
 
+import training.core.model.Board;
+import training.core.model.Symbol;
+
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-
-import training.core.model.Board;
 
 public class ConsoleBoard extends Board {
 
@@ -15,14 +16,15 @@ public class ConsoleBoard extends Board {
 		super();
 	}
 
-	public ConsoleBoard(List<List<Symbol>> boardDefinition) {
+	public ConsoleBoard(List<Symbol> boardDefinition) {
 		super(boardDefinition);
 	}
 
 	@Override
 	public String toString() {
+		List<List<Symbol>> boardDef = Lists.partition(getBoardDefinition(), getBoardSize());
 		List<String> rows = Lists.newArrayList();
-		for (List<Symbol> row : getBoardDefinition()) {
+		for (List<Symbol> row : boardDef) {
 			Iterable<String> rowString = Iterables.transform(row, new Function<Symbol, String>() {
 				public String apply(Symbol symbol) {
 					if (Symbol.X.equals(symbol)) {

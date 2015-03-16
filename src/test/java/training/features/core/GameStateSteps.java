@@ -8,9 +8,9 @@ import org.junit.Assert;
 
 import training.core.GameService;
 import training.core.model.Board;
-import training.core.model.Board.Symbol;
 import training.core.model.Game;
 import training.core.model.Player;
+import training.core.model.Symbol;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -37,15 +37,14 @@ public class GameStateSteps {
 
 	@When("^game has started$")
 	public void game_has_started() throws Throwable {
-		 state.getGameService().start(new Game(new Board()));
+		state.getGameService().start(new Game(new Board()));
 	}
 
 	@When("^players made a moves$")
 	public void player_made_a_moves(List<String> moves) throws Throwable {
 		for (String move : moves) {
-			int x = Integer.valueOf(move.substring(0, 1).trim());
-			int y = Integer.valueOf(move.substring(2, 3).trim());
-			state.getGameService().mark(x, y);
+			int index = Integer.valueOf(move.trim());
+			state.getGameService().mark(index);
 		}
 	}
 

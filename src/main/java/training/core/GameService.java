@@ -7,9 +7,9 @@ public class GameService {
 
 	private Game game;
 
-	public void mark(int x, int y) throws GameRuntimeException {
-		game.getBoard().setPosition(x, y, game.getActivePlayer().getSymbol());
-		game.getScoreCalculator().calculate(game.getActivePlayer(), x, y);
+	public void mark(int index) throws GameRuntimeException {
+		game.getBoard().mark(index, game.getActivePlayer().getSymbol());
+		game.getScoreCalculator().calculate(game.getActivePlayer(), index);
 		if (game.getScoreCalculator().isWinner(game.getActivePlayer())) {
 			return;
 		}

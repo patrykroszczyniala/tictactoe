@@ -3,11 +3,11 @@ Feature: Winner is a player who first mark cells on board in a horizontal, verti
   Scenario: The winner is user who marked column with the same symbols
     Given a game with an empty board
     When players made a moves
-      | 0,0 |
-      | 1,1 |
-      | 0,1 |
-      | 2,0 |
-      | 0,2 |
+      | 0 |
+      | 4 |
+      | 3 |
+      | 2 |
+      | 6 |
     Then board should be equal to
       | o | _ | x |
       | o | x | _ |
@@ -17,12 +17,12 @@ Feature: Winner is a player who first mark cells on board in a horizontal, verti
   Scenario: The winner is user who marked column with the same symbols
     Given a game with an empty board
     When players made a moves
-      | 2,0 |
-      | 0,0 |
-      | 1,1 |
-      | 0,1 |
-      | 2,2 |
-      | 0,2 |
+      | 2 |
+      | 0 |
+      | 4 |
+      | 3 |
+      | 8 |
+      | 6 |
     Then board should be equal to
       | x | _ | o |
       | x | o | _ |
@@ -32,12 +32,12 @@ Feature: Winner is a player who first mark cells on board in a horizontal, verti
   Scenario: The winner is user who marked row with the same symbols
     Given a game with an empty board
     When players made a moves
-      | 0,1 |
-      | 0,0 |
-      | 1,1 |
-      | 1,0 |
-      | 1,2 |
-      | 2,0 |
+      | 3 |
+      | 0 |
+      | 4 |
+      | 1 |
+      | 7 |
+      | 2 |
     Then board should be equal to
       | x | x | x |
       | o | o | _ |
@@ -47,12 +47,12 @@ Feature: Winner is a player who first mark cells on board in a horizontal, verti
   Scenario: The winner is user who marked diagonal with the same symbols
     Given a game with an empty board
     When players made a moves
-      | 0,1 |
-      | 0,0 |
-      | 1,0 |
-      | 1,1 |
-      | 2,0 |
-      | 2,2 |
+      | 3 |
+      | 0 |
+      | 1 |
+      | 4 |
+      | 2 |
+      | 8 |
     Then board should be equal to
       | x | o | o |
       | o | x | _ |
@@ -62,11 +62,11 @@ Feature: Winner is a player who first mark cells on board in a horizontal, verti
   Scenario: The winner is user who marked diagonal with the same symbols
     Given a game with an empty board
     When players made a moves
-      | 2,0 |
-      | 1,0 |
-      | 1,1 |
-      | 0,1 |
-      | 0,2 |
+      | 2 |
+      | 1 |
+      | 4 |
+      | 3 |
+      | 6 |
     Then board should be equal to
       | _ | x | o |
       | x | o | _ |

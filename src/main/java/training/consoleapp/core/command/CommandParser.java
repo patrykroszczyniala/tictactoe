@@ -19,7 +19,7 @@ public class CommandParser {
 	private Matcher matcher;
 
 	public CommandParser() {
-		patterns.put(Command.USERS_MOVE, "(\\d),(\\d)");
+		patterns.put(Command.USERS_MOVE, "(\\d)");
 		patterns.put(Command.START_GAME, "y|start");
 		patterns.put(Command.HELP, "help");
 		patterns.put(Command.EXIT_APPLICATION, "exit");

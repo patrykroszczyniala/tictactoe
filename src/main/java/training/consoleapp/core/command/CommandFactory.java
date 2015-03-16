@@ -20,7 +20,8 @@ public final class CommandFactory {
 
 	private Map<Command, ConsoleCommand> commands = new HashMap<CommandFactory.Command, ConsoleCommand>();
 
-	public CommandFactory(final GameService gameService, final MessageInput messageInput, final MessageOutput messageOutput) {
+	public CommandFactory(final GameService gameService, final MessageInput messageInput,
+			final MessageOutput messageOutput) {
 		commands.put(Command.START_GAME, new StartGameCommand(gameService, messageInput, messageOutput));
 		commands.put(Command.HELP, new HelpCommand(messageOutput));
 		commands.put(Command.USERS_MOVE, new UsersMoveCommand(gameService, messageInput, messageOutput));
@@ -38,9 +39,8 @@ public final class CommandFactory {
 		Command cmd = parser.parse(command);
 		if (cmd.equals(Command.USERS_MOVE)) {
 			UsersMoveCommand userDirectionsCommand = (UsersMoveCommand) create(cmd);
-			Integer x = Integer.parseInt(parser.group(1));
-			Integer y = Integer.parseInt(parser.group(2));
-			return userDirectionsCommand.setDirections(x, y);
+			Integer index = Integer.parseInt(parser.group(0));
+			return userDirectionsCommand.setIndex(index);
 		}
 		return create(cmd);
 	}
