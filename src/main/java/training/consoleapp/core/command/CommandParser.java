@@ -23,6 +23,7 @@ public class CommandParser {
 		patterns.put(Command.START_GAME, "y|start");
 		patterns.put(Command.HELP, "help");
 		patterns.put(Command.EXIT_APPLICATION, "exit");
+		patterns.put(Command.HINT, "hint");
 	}
 
 	public Command parse(String command) {

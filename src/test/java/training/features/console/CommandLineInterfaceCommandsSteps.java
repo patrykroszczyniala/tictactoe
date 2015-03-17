@@ -14,9 +14,10 @@ import training.consoleapp.core.command.CommandFactory;
 import training.consoleapp.core.command.CommandFactory.Command;
 import training.consoleapp.core.io.MessageInput;
 import training.consoleapp.core.io.MessageOutput;
-import training.consoleapp.core.model.ConsoleBoard;
+import training.core.ConsoleBoardService;
 import training.core.GameService;
 import training.core.model.Board;
+import training.core.model.ConsoleBoardState;
 import training.features.core.BoardStateSteps;
 import training.features.core.ScenarioState;
 import cucumber.api.java.Before;
@@ -51,11 +52,12 @@ public class CommandLineInterfaceCommandsSteps {
 		messageInput = new MessageInput(outputStream);
 		messageOutput = new MessageOutput(outputStream);
 		state.setGameService(new GameService());
+		state.setConsoleBoardStateService(new ConsoleBoardService(new ConsoleBoardState()));
 	}
 
 	@Given("^command line interface$")
 	public void command_line_interface() throws Throwable {
-		CommandFactory commandFactory = new CommandFactory(state.getGameService(), messageInput, messageOutput);
+		CommandFactory commandFactory = new CommandFactory(state.getGameService(), state.getConsoleBoardStateService(), messageInput, messageOutput);
 		state.setCommandFactory(commandFactory);
 	}
 	
@@ -88,7 +90,7 @@ public class CommandLineInterfaceCommandsSteps {
 
 	@Then("^board should be shown$")
 	public void board_should_be_shown(List<String> expectedBoardDefinition) throws Throwable {
-		Board expectedBoard = new ConsoleBoard(BoardStateSteps.convertToArray(expectedBoardDefinition));
+		Board expectedBoard = new Board(BoardStateSteps.convertToArray(expectedBoardDefinition));
 		Assert.assertEquals(expectedBoard, state.getGameService().getGame().getBoard());
 	}
 

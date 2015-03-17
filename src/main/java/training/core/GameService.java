@@ -35,4 +35,8 @@ public class GameService {
 		this.game = game;
 	}
 	
+	public boolean isStarted() {
+		return game!=null;
+	}
+	
 }
