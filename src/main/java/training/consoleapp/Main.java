@@ -4,16 +4,17 @@ import training.consoleapp.core.ConsoleApplication;
 import training.consoleapp.core.command.CommandFactory;
 import training.consoleapp.core.io.MessageInput;
 import training.consoleapp.core.io.MessageOutput;
-import training.core.ConsoleBoardService;
-import training.core.GameService;
-import training.core.model.ConsoleBoardState;
+import training.core.BoardService;
+import training.core.gameservice.GameService;
+import training.core.gameservice.LocalGameService;
+import training.core.model.BoardState;
 
 public class Main {
 
 	public static void main(String[] args) {
-		ConsoleBoardState consoleBoardState = new ConsoleBoardState();
-		ConsoleBoardService consoleBoardStateService = new ConsoleBoardService(consoleBoardState);
-		GameService gameService = new GameService();
+		BoardState consoleBoardState = new BoardState();
+		BoardService consoleBoardStateService = new BoardService(consoleBoardState);
+		GameService gameService = new LocalGameService();
 		MessageInput messageInput = new MessageInput(System.out);
 		MessageOutput messageOutput = new MessageOutput(System.out);
 		CommandFactory commandFactory = new CommandFactory(gameService, consoleBoardStateService, messageInput, messageOutput);

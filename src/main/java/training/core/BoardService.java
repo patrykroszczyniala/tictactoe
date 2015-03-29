@@ -4,21 +4,21 @@ import java.util.LinkedList;
 import java.util.List;
 
 import training.core.model.Board;
-import training.core.model.ConsoleBoardState;
+import training.core.model.BoardState;
 import training.core.model.Symbol;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
-public class ConsoleBoardService {
+public class BoardService {
 
-	private ConsoleBoardState state;
+	private BoardState state;
 
-	public ConsoleBoardService(ConsoleBoardState state) {
+	public BoardService(BoardState state) {
 		this.state = state;
 	}
 
-	public ConsoleBoardState getState() {
+	public BoardState getState() {
 		return state;
 	}
 

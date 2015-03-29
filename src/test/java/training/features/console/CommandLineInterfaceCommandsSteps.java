@@ -7,17 +7,15 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 
 import training.consoleapp.core.command.CommandFactory;
 import training.consoleapp.core.command.CommandFactory.Command;
 import training.consoleapp.core.io.MessageInput;
 import training.consoleapp.core.io.MessageOutput;
-import training.core.ConsoleBoardService;
-import training.core.GameService;
+import training.core.BoardService;
+import training.core.gameservice.LocalGameService;
 import training.core.model.Board;
-import training.core.model.ConsoleBoardState;
+import training.core.model.BoardState;
 import training.features.core.BoardStateSteps;
 import training.features.core.ScenarioState;
 import cucumber.api.java.Before;
@@ -32,10 +30,6 @@ import cucumber.runtime.java.guice.ScenarioScoped;
 @ScenarioScoped
 public class CommandLineInterfaceCommandsSteps {
 
-	// TODO does not work with cucumber-jvm?
-	@Rule
-	public final ExpectedSystemExit expectedExit = ExpectedSystemExit.none();
-	
 	private OutputStream outputStream;
 	private MessageInput messageInput;
 	private MessageOutput messageOutput;
@@ -51,8 +45,8 @@ public class CommandLineInterfaceCommandsSteps {
 		outputStream = new ByteArrayOutputStream();
 		messageInput = new MessageInput(outputStream);
 		messageOutput = new MessageOutput(outputStream);
-		state.setGameService(new GameService());
-		state.setConsoleBoardStateService(new ConsoleBoardService(new ConsoleBoardState()));
+		state.setGameService(new LocalGameService());
+		state.setConsoleBoardStateService(new BoardService(new BoardState()));
 	}
 
 	@Given("^command line interface$")

@@ -21,6 +21,7 @@ public class CommandParser {
 	public CommandParser() {
 		patterns.put(Command.USERS_MOVE, "(\\d)");
 		patterns.put(Command.START_GAME, "y|start");
+		patterns.put(Command.START_MULTIPLAYER_GAME, "start multiplayer");
 		patterns.put(Command.HELP, "help");
 		patterns.put(Command.EXIT_APPLICATION, "exit");
 		patterns.put(Command.HINT, "hint");

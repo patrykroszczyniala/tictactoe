@@ -1,9 +1,10 @@
-package training.core;
+package training.core.gameservice;
 
+import training.core.GameRuntimeException;
 import training.core.model.Game;
 import training.core.model.Player;
 
-public class GameService {
+public class MultiplayerGameService implements GameService {
 
 	private Game game;
 

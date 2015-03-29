@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import org.junit.Assert;
 
 import training.core.GameRuntimeException;
-import training.core.GameService;
+import training.core.gameservice.LocalGameService;
 import training.core.model.Board;
 import training.core.model.Game;
 import training.core.model.Symbol;
@@ -34,14 +34,14 @@ public class BoardStateSteps {
 
 	@Given("^a game with an empty board$")
 	public void a_game_with_an_empty_board() throws Throwable {
-		state.setGameService(new GameService());
+		state.setGameService(new LocalGameService());
 		state.getGameService().start(new Game(new Board()));
 	}
 
 	@Given("^a game with a board$")
 	public void a_game_with_a_board(List<String> boardDefinition) throws Throwable {
 		Board board = new Board(convertToArray(boardDefinition));
-		state.setGameService(new GameService());
+		state.setGameService(new LocalGameService());
 		state.getGameService().start(new Game(board));
 	}
 

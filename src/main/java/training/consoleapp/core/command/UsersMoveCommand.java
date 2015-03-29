@@ -2,21 +2,21 @@ package training.consoleapp.core.command;
 
 import training.consoleapp.core.io.MessageInput;
 import training.consoleapp.core.io.MessageOutput;
-import training.core.ConsoleBoardService;
+import training.core.BoardService;
 import training.core.GameRuntimeException;
-import training.core.GameService;
+import training.core.gameservice.GameService;
 
 import com.google.common.base.Preconditions;
 
 public class UsersMoveCommand implements ConsoleCommand {
 
 	private GameService gameService;
-	private ConsoleBoardService consoleBoardService;
+	private BoardService consoleBoardService;
 	private MessageInput messageInput;
 	private MessageOutput messageOutput;
 	private Integer index;
 
-	public UsersMoveCommand(GameService gameService, ConsoleBoardService consoleBoardService, MessageInput messageInput, MessageOutput messageOutput) {
+	public UsersMoveCommand(GameService gameService, BoardService consoleBoardService, MessageInput messageInput, MessageOutput messageOutput) {
 		this.gameService = gameService;
 		this.consoleBoardService = consoleBoardService;
 		this.messageInput = messageInput;

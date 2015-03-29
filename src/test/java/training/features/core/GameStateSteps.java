@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import org.junit.Assert;
 
-import training.core.GameService;
+import training.core.gameservice.LocalGameService;
 import training.core.model.Board;
 import training.core.model.Game;
 import training.core.model.Player;
@@ -32,7 +32,7 @@ public class GameStateSteps {
 
 	@Given("^new game$")
 	public void new_game() throws Throwable {
-		state.setGameService(new GameService());
+		state.setGameService(new LocalGameService());
 	}
 
 	@When("^game has started$")

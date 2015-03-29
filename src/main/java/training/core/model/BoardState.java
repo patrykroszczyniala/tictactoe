@@ -1,6 +1,6 @@
 package training.core.model;
 
-public class ConsoleBoardState {
+public class BoardState {
 
 	private boolean hintEnabled;
 

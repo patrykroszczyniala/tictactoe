@@ -1,8 +1,8 @@
 package training.features.core;
 
 import training.consoleapp.core.command.CommandFactory;
-import training.core.ConsoleBoardService;
-import training.core.GameService;
+import training.core.BoardService;
+import training.core.gameservice.GameService;
 import cucumber.runtime.java.guice.ScenarioScoped;
 
 @ScenarioScoped
@@ -10,7 +10,7 @@ public class ScenarioState {
 
 	private CommandFactory commandFactory;
 	private GameService gameService;
-	private ConsoleBoardService consoleBoardStateService;
+	private BoardService consoleBoardStateService;
 
 	public CommandFactory getCommandFactory() {
 		return commandFactory;
@@ -28,11 +28,11 @@ public class ScenarioState {
 		this.gameService = gameService;
 	}
 
-	public ConsoleBoardService getConsoleBoardStateService() {
+	public BoardService getConsoleBoardStateService() {
 		return consoleBoardStateService;
 	}
 
-	public void setConsoleBoardStateService(ConsoleBoardService consoleBoardStateService) {
+	public void setConsoleBoardStateService(BoardService consoleBoardStateService) {
 		this.consoleBoardStateService = consoleBoardStateService;
 	}
 
