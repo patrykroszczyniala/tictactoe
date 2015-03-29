@@ -1,12 +1,10 @@
 package training.consoleapp.core.command;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import training.consoleapp.core.command.CommandFactory.Command;
 
 /**
  * Creates command-line commands by parsing user inputs.
@@ -15,25 +13,21 @@ import training.consoleapp.core.command.CommandFactory.Command;
  */
 public class CommandParser {
 
-	private Map<Command, String> patterns = new HashMap<Command, String>();
+	private Set<Command> commands = new HashSet<Command>();
 	private Matcher matcher;
 
 	public CommandParser() {
-		patterns.put(Command.USERS_MOVE, "(\\d)");
-		patterns.put(Command.START_GAME, "y|start");
-		patterns.put(Command.START_MULTIPLAYER_GAME, "start multiplayer");
-		patterns.put(Command.HELP, "help");
-		patterns.put(Command.EXIT_APPLICATION, "exit");
-		patterns.put(Command.HINT, "hint");
+		commands.addAll(Arrays.asList(GameCommand.values()));
+		commands.addAll(Arrays.asList(ApplicationCommand.values()));
 	}
 
 	public Command parse(String command) {
-		for (Entry<Command, String> patternDefinition : patterns.entrySet()) {
-			if (matches(patternDefinition.getValue(), command)) {
-				return patternDefinition.getKey();
+		for (Command c : commands) {
+			if (matches(c.getPattern(), command)) {
+				return c;
 			}
 		}
-		return Command.UNKNOWN_COMMAND;
+		return ApplicationCommand.UNKNOWN_COMMAND;
 	}
 
 	public String group(int group) {

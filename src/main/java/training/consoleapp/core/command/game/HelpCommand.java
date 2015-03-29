@@ -1,5 +1,6 @@
-package training.consoleapp.core.command;
+package training.consoleapp.core.command.game;
 
+import training.consoleapp.core.command.ConsoleCommand;
 import training.consoleapp.core.io.MessageOutput;
 
 public class HelpCommand implements ConsoleCommand {

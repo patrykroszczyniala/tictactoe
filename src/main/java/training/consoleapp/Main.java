@@ -18,7 +18,7 @@ public class Main {
 		MessageInput messageInput = new MessageInput(System.out);
 		MessageOutput messageOutput = new MessageOutput(System.out);
 		CommandFactory commandFactory = new CommandFactory(gameService, consoleBoardStateService, messageInput, messageOutput);
-		ConsoleApplication ca = new ConsoleApplication(System.in, commandFactory);
+		ConsoleApplication ca = new ConsoleApplication(messageOutput, messageInput, System.in, commandFactory);
 		ca.start();
 	}
 

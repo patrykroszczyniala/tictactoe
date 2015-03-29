@@ -1,5 +1,6 @@
-package training.consoleapp.core.command;
+package training.consoleapp.core.command.game;
 
+import training.consoleapp.core.command.ConsoleCommand;
 import training.consoleapp.core.io.MessageInput;
 import training.consoleapp.core.io.MessageOutput;
 import training.core.BoardService;

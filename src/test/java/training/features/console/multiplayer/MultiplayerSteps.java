@@ -2,7 +2,7 @@ package training.features.console.multiplayer;
 
 import javax.inject.Inject;
 
-import training.consoleapp.core.command.CommandFactory.Command;
+import training.consoleapp.core.command.ApplicationCommand;
 import training.features.core.ScenarioState;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -27,7 +27,7 @@ public class MultiplayerSteps {
 
 	@Given("^multiplayer game is running$")
 	public void multiplayer_game_is_running() throws Throwable {
-		state.getCommandFactory().create(Command.START_MULTIPLAYER_GAME).run();
+		state.getCommandFactory().create(ApplicationCommand.START_MULTIPLAYER_GAME).run();
 	}
 
 }

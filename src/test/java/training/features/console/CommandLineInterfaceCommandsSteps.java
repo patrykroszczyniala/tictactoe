@@ -8,8 +8,8 @@ import javax.inject.Inject;
 
 import org.junit.Assert;
 
+import training.consoleapp.core.command.ApplicationCommand;
 import training.consoleapp.core.command.CommandFactory;
-import training.consoleapp.core.command.CommandFactory.Command;
 import training.consoleapp.core.io.MessageInput;
 import training.consoleapp.core.io.MessageOutput;
 import training.core.BoardService;
@@ -57,7 +57,7 @@ public class CommandLineInterfaceCommandsSteps {
 	
 	@Given("^user started the application$")
 	public void user_started_the_application() throws Throwable {
-		state.getCommandFactory().create(Command.START_APPLICATION).run();
+		state.getCommandFactory().create(ApplicationCommand.START_APPLICATION).run();
 	}
 	
 	@When("^user entered command (.*)$")
