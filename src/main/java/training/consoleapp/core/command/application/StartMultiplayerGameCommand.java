@@ -1,3 +1,6 @@
+/**
+ * Copyright (c) 2015, Patryk Roszczyniała
+ */
 package training.consoleapp.core.command.application;
 
 import training.consoleapp.core.command.ConsoleCommand;
@@ -8,31 +11,63 @@ import training.core.gameservice.GameService;
 import training.core.model.Board;
 import training.core.model.Game;
 
+/**
+ * The Class StartMultiplayerGameCommand.
+ *
+ * @author Patryk Roszczyniala (p.roszczyniala@gmail.com)
+ * @version $Id$
+ */
 public class StartMultiplayerGameCommand implements ConsoleCommand {
 
-	private GameService gameService;
-	private BoardService consoleBoardService;
-	private MessageInput messageInput;
-	private MessageOutput messageOutput;
+    /**
+     * The game service.
+     */
+    private GameService gameService;
 
-	public StartMultiplayerGameCommand(GameService gameService, BoardService consoleBoardService,
-			MessageInput messageInput, MessageOutput messageOutput) {
-		this.gameService = gameService;
-		this.consoleBoardService = consoleBoardService;
-		this.messageInput = messageInput;
-		this.messageOutput = messageOutput;
-	}
+    /**
+     * The console board service.
+     */
+    private BoardService consoleBoardService;
 
-	public void run() {
-		if (!gameService.isStarted()) {
-			gameService.start(new Game(new Board()));
-			messageOutput.show("msg_multiplayer_game_started_wating");
-		} else {
-			messageOutput.show("msg_multiplayer_game_started_started");
-			messageOutput.show("msg_next_player_move", gameService.getGame().getActivePlayer().toString(),
-					consoleBoardService.asString(gameService.getGame().getBoard()));
-			messageInput.show("msg_enter_directions");
-		}
-	}
+    /**
+     * The message input.
+     */
+    private MessageInput messageInput;
+
+    /**
+     * The message output.
+     */
+    private MessageOutput messageOutput;
+
+    /**
+     * Instantiates a new start multiplayer game command.
+     *
+     * @param gameService the game service
+     * @param consoleBoardService the console board service
+     * @param messageInput the message input
+     * @param messageOutput the message output
+     */
+    public StartMultiplayerGameCommand(GameService gameService,
+            BoardService consoleBoardService,
+            MessageInput messageInput, MessageOutput messageOutput) {
+        this.gameService = gameService;
+        this.consoleBoardService = consoleBoardService;
+        this.messageInput = messageInput;
+        this.messageOutput = messageOutput;
+    }
+
+    public void run() {
+        if (!gameService.isStarted()) {
+            gameService.start(new Game(new Board()));
+            messageOutput.show("msg_multiplayer_game_started_wating");
+        } else {
+            messageOutput.show("msg_multiplayer_game_started_started");
+            messageOutput.show("msg_next_player_move", gameService.getGame()
+                    .getActivePlayer().toString(),
+                    consoleBoardService.asString(gameService.getGame()
+                            .getBoard()));
+            messageInput.show("msg_enter_directions");
+        }
+    }
 
 }

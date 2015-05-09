@@ -1,15 +1,37 @@
+/**
+ * Copyright (c) 2015, Patryk Roszczyniała
+ */
 package training.core.model;
 
+/**
+ * The Class BoardState.
+ *
+ * @author Patryk Roszczyniala (p.roszczyniala@gmail.com)
+ * @version $Id$
+ */
 public class BoardState {
 
-	private boolean hintEnabled;
+    /**
+     * The hint enabled.
+     */
+    private boolean hintEnabled;
 
-	public boolean isHintEnabled() {
-		return hintEnabled;
-	}
+    /**
+     * Checks if is hint enabled.
+     *
+     * @return true, if is hint enabled
+     */
+    public boolean isHintEnabled() {
+        return hintEnabled;
+    }
 
-	public void setHintEnabled(boolean hintEnabled) {
-		this.hintEnabled = hintEnabled;
-	}
+    /**
+     * Sets the hint enabled.
+     *
+     * @param hintEnabled the new hint enabled
+     */
+    public void setHintEnabled(boolean hintEnabled) {
+        this.hintEnabled = hintEnabled;
+    }
 
 }

@@ -1,44 +1,75 @@
+/**
+ * Copyright (c) 2015, Patryk Roszczyniała
+ */
 package training.core;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
 import training.core.model.Player;
 
 /**
  * Class that represents game board.
+ *
+ * @author Patryk Roszczyniala (p.roszczyniala@gmail.com)
+ * @version $Id$
  */
-public class ScoreCalculator {
+public final class ScoreCalculator {
 
-	private Map<Player, Integer[]> score;
-	private int boardSize = 3;
+    /**
+     * The score.
+     */
+    private final Map<Player, Integer[]> score;
 
-	public ScoreCalculator(Player player1, Player player2) {
-		score = new HashMap<Player, Integer[]>();
-		score.put(player1, new Integer[] { 0, 0, 0, 0, 0, 0, 0, 0 });
-		score.put(player2, new Integer[] { 0, 0, 0, 0, 0, 0, 0, 0 });
-	}
-	
-	public void calculate(Player player, int index) {
-		Integer[] scoreTable = score.get(player);
-		int row = Math.round(index / boardSize);
-		int col = (index - Math.round(row * boardSize));
-		int diag1 = 2*boardSize; 
-		int diag2 = 2*boardSize+1;
-		if (col==row) {
-			scoreTable[diag1]++;
-		}
-		if ((col+row)==boardSize-1) {
-			scoreTable[diag2]++;
-		}
-		scoreTable[row]++;
-		int colIndex = col + boardSize;
-		scoreTable[colIndex]++;
-	}
+    /**
+     * The board size.
+     */
+    private final int boardsize = 3;
 
-	public boolean isWinner(Player player) {
-		return Arrays.asList(score.get(player)).contains(boardSize);
-	}
+    /**
+     * Instantiates a new score calculator.
+     *
+     * @param firstplayer The player1
+     * @param secondplayer The player2
+     */
+    public ScoreCalculator(final Player firstplayer,
+            final Player secondplayer) {
+        this.score = new HashMap<Player, Integer[]>();
+        this.score.put(firstplayer, new Integer[] {0, 0, 0, 0, 0, 0, 0, 0});
+        this.score.put(secondplayer, new Integer[] {0, 0, 0, 0, 0, 0, 0, 0});
+    }
+
+    /**
+     * Calculate.
+     *
+     * @param player The player
+     * @param index The index
+     */
+    public void calculate(final Player player, final int index) {
+        final Integer[] scoreTable = this.score.get(player);
+        final int row = Math.round(index / this.boardsize);
+        final int col = index - Math.round(row * this.boardsize);
+        final int diagfirst = 2 * this.boardsize;
+        final int diagsecond = 2 * this.boardsize + 1;
+        if (col == row) {
+            scoreTable[diagfirst] += 1;
+        }
+        if ((col + row) == this.boardsize - 1) {
+            scoreTable[diagsecond] += 1;
+        }
+        scoreTable[row] += 1;
+        final int colIndex = col + this.boardsize;
+        scoreTable[colIndex] += 1;
+    }
+
+    /**
+     * Checks if is winner.
+     *
+     * @param player The player
+     * @return Returns true, if is winner
+     */
+    public boolean isWinner(final Player player) {
+        return Arrays.asList(this.score.get(player)).contains(this.boardsize);
+    }
 
 }

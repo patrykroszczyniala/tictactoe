@@ -1,18 +1,19 @@
+/**
+ * Copyright (c) 2015, Patryk Roszczyniała
+ */
 package training.consoleapp.core.command;
 
-import java.io.IOException;
-
 /**
- * Interface for console command-line commands.
- * 
- * @author proszczyniala
+ * The Interface ConsoleCommand.
+ *
+ * @author Patryk Roszczyniala (p.roszczyniala@gmail.com)
+ * @version $Id$
  */
 public interface ConsoleCommand {
 
-	/**
-	 * Executes command-line command.
-	 * @throws IOException
-	 */
-	void run();
-	
+    /**
+     * Executes command-line command.
+     */
+    void run();
+
 }
